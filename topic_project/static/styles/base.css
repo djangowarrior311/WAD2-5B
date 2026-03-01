@@ -1,0 +1,11 @@
+#announcements {
+    background-color: aqua;
+    font-size: 18;
+    width: 100%;
+    height: flex;
+    padding: 5px;
+}
+
+#topbar {
+    background-color: steelblue;
+}
