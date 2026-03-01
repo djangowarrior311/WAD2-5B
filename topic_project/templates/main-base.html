@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+<!-- Expect most pages to inherit from this. -->
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/base.css' %}">
+{% endblock %}
+
+{% block base_body_block %}
+<!-- Announcements -->
+{% if announcement %}
+    <div id="announcements" class="center banner">
+        {{ announcement }}
+    </div>
+{% endif %}
+<!-- Top bar -->
+<div id="topbar" class="center banner">
+    adslfhasi;odfyoadsyf
+</div>
+
+<!-- Main contents of the page -->
+<div>
+    {% block body_block %}
+    {% endblock %}
+</div>
+{% endblock %}

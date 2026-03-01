@@ -1,0 +1,13 @@
+{% extends 'main-base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
+{% endblock %}
+
+{% block body_block %}
+    <header>
+        Hello world!
+    </header>
+{% endblock %}

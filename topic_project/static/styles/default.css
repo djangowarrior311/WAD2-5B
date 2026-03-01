@@ -1,6 +1,28 @@
+/* Contains styles that are used generally */
+/* across the website */
 * {
- margin: 0;
- padding: 0;
+  margin: 0;
+  padding: 0;
+}
+
+footer {
+  margin-top: auto;
+  /* padding: 10px; */
+  padding-left: 20px;
+  padding-bottom: 40px;
+}
+
+body > main {
+  flex: 1 1 auto;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  display: block flex;
+  background-color: steelblue;
+  flex-flow: column nowrap;
+  justify-content: space-between;
 }
 
 
