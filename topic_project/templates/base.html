@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+
+{% load static %}
+<!-- Expect most pages to inherit from this. -->
+
+<html>
+    <head>
+        <styles>
+            <link rel="stylesheet" href="{% static 'styles/default.css' %}">
+            <link rel="stylesheet" href="{% static 'styles/base.css' %}">
+        </styles>
+    </head>
+    <body>
+        <!-- Announcements -->
+        <div id="announcements" class="center">
+            <!-- TODO: make this be a property -->
+            {{ announcement }}
+        </div>
+        <!-- Top bar -->
+        <div id="topbar">
+
+        </div>
+
+        <!-- Main contents of the page -->
+        <div id="body">
+
+        </div>
+    </body>
+    
+
+</html>
