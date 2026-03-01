@@ -10,6 +10,10 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
+# typing imports
+from typing import TypedDict
+
+
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -52,7 +56,15 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'topic_project.urls'
 
-TEMPLATES = [
+
+class Templates(TypedDict):
+    BACKEND: str
+    DIRS: list[str]
+    APP_DIRS: bool
+    OPTIONS: dict[str, list[str]]
+
+
+TEMPLATES: list[Templates] = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
