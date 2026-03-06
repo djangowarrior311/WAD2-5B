@@ -17,7 +17,9 @@ from django.contrib import admin
 from django.urls import path
 from topic import views
 
-urlpatterns = [
+from django.urls import URLPattern, URLResolver
+
+urlpatterns: list[URLPattern | URLResolver] = [
     path('', views.index),
     path('admin/', admin.site.urls)
 ]

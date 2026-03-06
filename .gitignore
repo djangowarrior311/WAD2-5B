@@ -17,5 +17,4 @@ venv.bak/
 .conda
 
 # Visual Studio Code # 
-.vscode
 .history
