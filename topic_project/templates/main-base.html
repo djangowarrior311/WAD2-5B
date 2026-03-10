@@ -20,8 +20,13 @@
 {% endif %}
 <!-- Top bar -->
 <div id="topbar" class="center banner">
-    This top bar will eventually include the search, login/signup and logo
-    <a href="{% url 'topic:register' %}">Register here</a>
+    This top bar will eventually include the search, logo
+    {% if user.is_authenticated %}
+        <a href="{% url 'topic:logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'topic:login' %}">Login</a> |
+        <a href="{% url 'topic:register' %}">Register</a>
+    {% endif %}
 </div>
 
 <!-- Main contents of the page -->
@@ -29,4 +34,8 @@
     {% block body_block %}
     {% endblock %}
 </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
 {% endblock %}
