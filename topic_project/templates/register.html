@@ -1,29 +1,74 @@
 <!DOCTYPE html>
-
 {% extends 'main-base.html' %}
 {% load static %}
-
 
 {% block stylesheets %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'styles/register_login.css' %}">
 {% endblock %}
 
+{% block scripts %}
+    {{ block.super }}
+    <script src="{% static 'js/register_validation.js' %}"></script>
+{% endblock %}
 
 {% block body_block %}
-<div class = "container">
-    <div class = "wrapper">
-        <h1> Register for Topic - your home for all learning tools!  </h1>
+<div class="container">
+    <div class="wrapper">
+        <h1>Register for Topic - your home for all learning tools!</h1>
 
         {% if registered %}
             <div class="message">
-                <strong> Thank you for registering! </strong>
+                <strong>Thank you for registering!</strong>
+                <p>You can now <a href="{% url 'topic:login' %}">login here</a>.</p>
             </div>
         {% else %}
-            <form id="user_form" class="form" method="post" action="{% url 'topic:register' %}">
+            <form id="user_form" class="form" method="post" action="{% url 'topic:register' %}" novalidate>
                 {% csrf_token %}
-                {{ user_form.as_p }}
-                <input type="submit" name="submit" value="Register" />
+                
+
+                <p>
+                    <label for="{{ user_form.username.id_for_label }}">Username *</label>
+                    {{ user_form.username }}
+                    <div id="username-validation" class="error-message"></div>
+                    <div id="username-success" class="success-message"></div>
+                    <div id="username-checking" class="field-checking"></div>
+                </p>
+
+
+                <p>
+                    <label for="{{ user_form.email.id_for_label }}">Email *</label>
+                    {{ user_form.email }}
+                    <div id="email-validation" class="error-message"></div>
+                    <div id="email-success" class="success-message"></div>
+                    <div id="email-checking" class="field-checking"></div>
+                </p>
+
+
+                <p>
+                    <label for="{{ user_form.password.id_for_label }}">Password *</label>
+                    {{ user_form.password }}
+                    <div id="password-strength"></div>
+                    <div class="password-requirements">
+                        <strong>Password must contain:</strong>
+                        <ul id="password-requirements-list">
+                            <li id="req-length">At least 8 characters</li>
+                            <li id="req-uppercase">At least one uppercase letter</li>
+                            <li id="req-lowercase">At least one lowercase letter</li>
+                            <li id="req-number">At least one number</li>
+                            <li id="req-special">At least one special character (!@#$%^&*)</li>
+                        </ul>
+                    </div>
+                </p>
+
+
+                <p>
+                    <label for="confirm_password">Confirm Password *</label>
+                    <input type="password" name="confirm_password" id="confirm_password" required>
+                    <div id="password-match" class="error-message"></div>
+                </p>
+
+                <input type="submit" name="submit" value="Register" id="submit-btn" />
             </form>
         {% endif %}
     </div>

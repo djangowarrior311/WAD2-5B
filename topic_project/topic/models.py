@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 from datetime import timedelta
 from typing import Any
-import random
+from random import randint
 
 # Create your models here.
 
@@ -23,7 +23,7 @@ class EmailVerification(models.Model):
     
     def save(self, *args: Any, **kwargs: Any) -> None:
         if not self.code:
-            self.code = f"{random.randint(100000, 999999)}"
+            self.code = f"{randint(100000, 999999)}"
         super().save(*args, **kwargs)
     
     def is_expired(self):

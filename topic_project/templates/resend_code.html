@@ -1,0 +1,38 @@
+{% extends 'main-base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/register_login.css' %}">
+{% endblock %}
+
+{% block body_block %}
+<div class="container">
+    <div class="wrapper">
+        <h1>Resend Verification Code</h1>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <p>Click the button below to resend a new verification code to <strong>{{ email }}</strong></p>
+        
+        <form method="post" action="{% url 'topic:resend_code' %}" class="form">
+            {% csrf_token %}
+            <input type="submit" value="Resend Verification Code">
+        </form>
+        
+        <p style="text-align: center; margin-top: 20px;">
+            <a href="{% url 'topic:verify_email' %}">Back to verification</a>
+        </p>
+        
+        <p style="text-align: center;">
+            <a href="{% url 'topic:register' %}">Start over with a different email</a>
+        </p>
+    </div>
+</div>
+{% endblock %}

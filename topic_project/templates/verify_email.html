@@ -1,0 +1,67 @@
+{% extends 'main-base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/register_login.css' %}">
+{% endblock %}
+
+{% block body_block %}
+<div class="container">
+    <div class="wrapper">
+        <h1>Verify Your Email</h1>
+        
+        {% if messages %}
+            {% for message in messages %}
+                <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+        
+        <p>We've sent a verification code to <strong>{{ email }}</strong></p>
+        <p>Please enter the 6-digit code below:</p>
+        
+        <form method="post" action="{% url 'topic:verify_email' %}" class="form">
+            {% csrf_token %}
+            
+            <p>
+                <label for="code">Verification Code *</label>
+                <input type="text" 
+                       name="code" 
+                       id="code" 
+                       required 
+                       maxlength="6" 
+                       pattern="[0-9]{6}"
+                       placeholder="Enter 6-digit code"
+                       title="Please enter the 6-digit code from your email"
+                       autocomplete="off"
+                       inputmode="numeric">
+            </p>
+            
+            <input type="submit" value="Verify Email">
+        </form>
+        
+        <p style="text-align: center; margin-top: 20px;">
+            Didn't receive the code? 
+            <a href="{% url 'topic:resend_code' %}">Resend code</a>
+        </p>
+        
+        <p style="text-align: center;">
+            <a href="{% url 'topic:register' %}">Start over</a>
+        </p>
+    </div>
+</div>
+
+<script>
+    document.getElementById('code').addEventListener('input', function() {
+        this.value = this.value.replace(/[^\d]/g, '').slice(0, 6);
+    });
+    
+    document.getElementById('code').addEventListener('keypress', function(e) {
+        if (!/^\d$/.test(e.key)) {
+            e.preventDefault();
+        }
+    });
+</script>
+{% endblock %}

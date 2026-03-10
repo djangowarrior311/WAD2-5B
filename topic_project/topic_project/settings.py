@@ -24,11 +24,17 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
 
 #EMAIL stuff
-EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+
+# use for testing
+#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL = "topicwebsiteregistration@gmail.com"
+EMAIL_HOST_USER = "topicwebsiteregistration@gmail.com"
+DEFAULT_FROM_EMAIL = "Topic Website <topicwebsiteregistration@gmail.com>"
+EMAIL_HOST_PASSWORD = "xeplrcfnjkgdysyi"
 EMAIL_PASSWORD = "98127y30891nhoihno87rqnym98-r cmsdkldak;"
 
 # Quick-start development settings - unsuitable for production
