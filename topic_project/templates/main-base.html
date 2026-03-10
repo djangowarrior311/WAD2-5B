@@ -9,9 +9,11 @@
 {% block base_body_block %}
 <!-- Announcements -->
 {% if announcement %}
-    <div id="announcements" class="center banner">
-        <button class = "align-left">x</button>
-        {{ announcement }}
+    <div id="announcements" class="banner">
+        <div class="message">
+            Server maintenance tonight at 10pm
+        </div>
+        <button class="close-button align-right">✕</button>
     </div>
     <!-- I think if you load it here it'll guarantee that it'll find announcements? -->
     <script src="{% static 'js/close_announcement.js' %}"></script>
