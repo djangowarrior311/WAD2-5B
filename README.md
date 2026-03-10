@@ -5,10 +5,11 @@ We'll be using anaconda because university machines like it.
 2. ```conda create -n topic python=3.11```
 3. ```pip install pillow```
 4. ```pip install django==2.2.28```
+5. ```pip install selenium``` <-- for tests
 ## Getting the project
-5. Navigate to your working directory
-6. ```git clone "https://github.com/MrSkroob/WAD2-5B"```
-7. CD into the new WAD2-5B.
+6. Navigate to your working directory
+7. ```git clone "https://github.com/MrSkroob/WAD2-5B"```
+8. CD into the new WAD2-5B.
 ## Running the project:
 9. CD into the `topic` folder. 
 10. `python manage.py runserver` and open link `http://127.0.0.1:8000/` to check everything is running correctly.
