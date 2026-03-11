@@ -2,21 +2,19 @@
 
 
 import os
-import warnings
-import importlib
-from django.urls import reverse
 from django.test import TestCase
 from selenium import webdriver
-from django.contrib.auth.models import User
+from selenium.webdriver.common.by import By
 
-driver = webdriver.Firefox(executable_path=GeckoDriverManager().install())
+print("INITIALISING DRIVER...")
+driver = webdriver.Firefox() # type: ignore
+driver.get("http://127.0.0.1:8000/")
 
-FAILURE_HEADER = f"{os.linesep}{os.linesep}{os.linesep}================{os.linesep}TwD TEST FAILURE =({os.linesep}================{os.linesep}"
-FAILURE_FOOTER = f"{os.linesep}"
+def test_close_announcements():
+    close_button = driver.find_element(by=By.CSS_SELECTOR, value="#announcements button")
+    close_button.click()
 
-class CloseButtonTests(TestCase):
-    def setUp(self):
-        pass
+    announcements = driver.find_element(by=By.ID, value="announcements")
+    assert not announcements.is_displayed, "announcements couldn't be closed!"
 
-    def close_announcement(self):
-        pass
+def 
