@@ -14,10 +14,6 @@ from test_config import *
 FAILURE_HEADER = f"{os.linesep}{os.linesep}{os.linesep}================{os.linesep}TwD TEST FAILURE =({os.linesep}================{os.linesep}"
 FAILURE_FOOTER = f"{os.linesep}"
 
-print("INITIALISING DRIVER...")
-driver = webdriver.Firefox() # type: ignore
-driver.get("http://127.0.0.1:8000/")
-
 # Source - https://stackoverflow.com/a/77159763
 # Posted by Rafael C.
 # Retrieved 2026-03-11, License - CC BY-SA 4.0
@@ -101,6 +97,12 @@ def run_tests(tests: Callable[[None], None]):
 
 
 if __name__ == "__main__":
+    pre_test()
+
+    print("INITIALISING DRIVER...")
+    driver = webdriver.Firefox() # type: ignore
+    driver.get("http://127.0.0.1:8000/")
+
     tests = [
         test_close_announcements,
         test_register_accessible,
