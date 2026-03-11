@@ -1,10 +1,11 @@
 .banner {
+    background-color: #a6ff00;
     width: 100%;
     padding: 0.5em;
 }
 
 #announcements {
-    background-color: aqua;
+    background-color: #00ffea;
     display: flex;            /* flex container */
     align-items: center;      /* vertical centering */
 }

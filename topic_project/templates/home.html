@@ -2,82 +2,34 @@
 {% load static %}
 
 {% block stylesheets %}
-    <!-- include stylesheets from parents too -->
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block body_block %}
-    <header>
-        <div>
-            <h1>Homepage!</h1> <br >
-            Very short description of the website + <br >
-            what it does
-        </div>
-        <div class="logo home-page">
-            GRAPHIC
-        </div>
-    </header>
-    <div id="categories">
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
-        <p>
-            test
-        </p>
+
+<div class="home-container">
+    <h1>Homepage!</h1>
+    <p>Hello academic weapon!</p>
+    <p>Welcome to TOPIC — your go‑to place for help.</p>
+
+    <div class="search-box">
+        <input type="text" placeholder="Search for topics…">
     </div>
+</div>
+
+<div id="categories">
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+    <p>test</p>
+</div>
+
 {% endblock %}

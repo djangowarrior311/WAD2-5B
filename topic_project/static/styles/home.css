@@ -1,25 +1,42 @@
-header {
-    height: flex;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: burlywood;
-    line-height: 1.5;
-    padding: 4vw;
+body {
+    background: repeating-linear-gradient(
+        to bottom,
+        #ffffff 0px,
+        #ffffff 22px,
+        #cfe0ff 22px,
+        #cfe0ff 23px
+    ) !important;
+    font-family: "Patrick Hand", cursive;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 60px;
+    width: 3px;
+    height: 100%;
+    background-color: #ff4d4d;
+    z-index: 0;
 }
 
 
-.logo.home-page {
-    width: 20vw;
-    background-color: deeppink;
+.home-container {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 5rem auto;
     text-align: center;
+    padding: 2rem;
 }
 
-
-/* Scroll bar shenanigans */
-#categories {
-    text-align: center;
-}
-#categories p {
-    padding: 1vw;
+.search-box input {
+    width: 60%;
+    padding: 0.8rem 1rem;
+    border: 2px solid #888;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-family: "Patrick Hand", cursive;
+    background-color: #fff;
 }
