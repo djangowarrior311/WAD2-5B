@@ -12,31 +12,36 @@
 <div class="home-container">
     <img src="{% static 'images/topiclogo.png' %}" alt="homepage">
     <p>Hello academic weapon!</p>
-    <p>Welcome to TOPIC — your go‑to place for help.</p>
-
-    <div class="search-box">
-        <input type="text" placeholder="Search for topics…">
-    </div>
+    <p>Welcome to TOPIC — your go-to place for help.</p>
 
     <div class="web-description" style="text-align: center;">
         <p>TOPIC is a website designed by students, for students</p>
         <p>On here you're able to find help with specific problems, upload and rate study tools and find the help you need.</p>
     </div>
 
+    <div class="search-box">
+        <input type="text" placeholder="Search for topics…">
+    </div>
 
-</div>
+    <!-- populated with a script, don't panic! -->
+    <div id="search-filter" class="center">
+        <p style="padding: 0.4rem">Filter by tag: </p>
+    </div>
+    <script src="{% static 'js/search_filter.js' %}" type="module"></script>
 
-<div id="categories">
-    <p>test</p>
-    <p>test</p>
-    <p>test</p>
-    <p>test</p>
-    <p>test</p>
-    <p>test</p>
-    <p>test</p>
-    <p>test</p>
-    <p>test</p>
-    <p>test</p>
+    <!-- <div id="filter">
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+        <p>test</p>
+    </div> -->
+
 </div>
 
 {% endblock %}
