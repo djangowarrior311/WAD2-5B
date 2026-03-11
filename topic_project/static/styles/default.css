@@ -1,32 +1,58 @@
-/* Contains styles that are used generally */
-/* across the website */
-* {
-  margin: 0;
-  padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-footer {
-  margin-top: auto;
-  padding: 4vw;
-}
-
-body > main {
-  flex: 1 1 auto;
-}
-
+/* setting up the main page colors so it matches our team wireframes */
 body {
-  width: 100vw;
-  height: 100vh;
-  display: block flex;
-  background-color: steelblue;
-  flex-flow: column nowrap;
-  justify-content: space-between;
+    background-color: #ffffff; 
+    color: #000000; 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* keeps everything centered so it doesn't stretch across huge monitors */
+main {
+    padding: 40px;
+    max-width: 800px;
+    margin: 0 auto;
 }
+
+/* the neon highlighter header we agreed on for the spec */
+h1 {
+    background-color: #FFFF00; 
+    color: #000000;
+    padding: 10px 20px;
+    display: inline-block;
+    text-transform: uppercase;
+    margin-bottom: 30px;
+}
+
+/* spacing out the form fields so they aren't squished together */
+form div {
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+/* styling the actual input boxes so you can actually see what you are typing */
+input[type="text"], input[type="url"], textarea, select {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #000000; 
+    background: #f8f8f8; /* slightly off-white so it pops against the background */
+    color: black;
+    border-radius: 4px;
+}
+
+/* our big neon submit button */
+input[type="submit"] {
+    background-color: #FFFF00;
+    color: black;
+    border: 2px solid #000000;
+    padding: 15px 30px;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+/* makes the button invert colors when you hover over it */
+input[type="submit"]:hover {
+    background-color: #000000;
+    color

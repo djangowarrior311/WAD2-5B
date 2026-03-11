@@ -1,9 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-
+from django.contrib.auth.decorators import login_required
 from django.http import HttpRequest
 from typing import TypedDict
-
+from topic.forms import ToolForm
 
 class TestContext(TypedDict):
     announcement: str
@@ -17,6 +17,20 @@ def index(request: HttpRequest) -> HttpResponse:
 
     return render(request, "home.html", context=context_dict)
 
-
-# def test(request: HttpRequest):
+#add tool view
+def addtool(request):
+    form = ToolForm()
+    
+    if request.method == 'POST':
+        form = ToolForm(request.POST)
+        if form.is_valid():
+            tool = form.save(commit=False)
+            tool.creator = request.user 
+            tool.save()
+            return redirect('index') 
+        else:
+            print(form.errors)
+            
+    context = {'form': form}
+    return render(request, 'topic/addtool.html', context=context)
     
