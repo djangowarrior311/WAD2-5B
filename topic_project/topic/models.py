@@ -29,6 +29,8 @@ class EmailVerification(models.Model):
     def is_expired(self):
         return timezone.now() > self.created_at + timedelta(minutes=10)
 
+
+
 class Tag(models.Model):
     TAG_NAME_MAX_LENGTH = 128
 
@@ -48,9 +50,17 @@ class Tool(models.Model):
         return self.name
 
 class Review(models.Model):
-    REVIEW_MAX_LENGTH = 512
+    REVIEW_MAX_LENGTH = 2000
+    RATING_CHOICES = (
+        (1,"*"),
+        (2,"**"),
+        (3,"***"),
+        (4,"****"),
+        (5,"*****"),
+    )
 
     tool = models.ForeignKey(Tool, on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=RATING_CHOICES, default=None)
     review_content = models.TextField(max_length=REVIEW_MAX_LENGTH)
 
     def __str__(self):
