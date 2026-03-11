@@ -28,3 +28,30 @@ class EmailVerification(models.Model):
     
     def is_expired(self):
         return timezone.now() > self.created_at + timedelta(minutes=10)
+
+class Tag(models.Model):
+    TAG_NAME_MAX_LENGTH = 128
+
+    name = models.CharField(max_length=TAG_NAME_MAX_LENGTH, unique=True)
+
+    def __str__(self):
+        return self.name
+
+class Tool(models.Model):
+    TOOL_NAME_MAX_LENGTH = 128
+
+    name = models.CharField(max_length=TOOL_NAME_MAX_LENGTH, unique=True)
+    url = models.URLField()
+    tags = models.ManyToManyField(Tag)
+
+    def __str__(self):
+        return self.name
+
+class Review(models.Model):
+    REVIEW_MAX_LENGTH = 512
+
+    tool = models.ForeignKey(Tool, on_delete=models.CASCADE)
+    review_content = models.TextField(max_length=REVIEW_MAX_LENGTH)
+
+    def __str__(self):
+        return self.review_content
