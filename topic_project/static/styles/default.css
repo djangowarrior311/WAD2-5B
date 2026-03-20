@@ -28,6 +28,7 @@ h1 {
 form div {
     margin-bottom: 20px;
     font-weight: bold;
+}
 body {
   width: 100vw;
   min-height: 100vh;
@@ -62,7 +63,8 @@ input[type="submit"] {
 /* makes the button invert colors when you hover over it */
 input[type="submit"]:hover {
     background-color: #000000;
-    color
+    color: #ff00ff;
+}
 .center {
   display: flex;
   justify-content: center;

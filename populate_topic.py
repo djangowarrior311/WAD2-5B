@@ -1,13 +1,13 @@
 import os
 
 # this line hooks the script up to project's settings so it knows where the database is
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'topic_project.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'topic_project.topic_project.settings')
 
 import django
 django.setup()
 
 # importing the tables from models.py file
-from topic.models import LearningTool, Review
+from topic_project.topic.models import LearningTool, Review
 from django.contrib.auth.models import User
 
 def populate():

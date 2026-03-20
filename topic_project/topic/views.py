@@ -1,12 +1,11 @@
 from django.http import HttpResponse, HttpRequest, JsonResponse
 from typing import TypedDict
-from topic.forms import ToolForm
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import UserProfile, EmailVerification
-from .forms import UserForm
+from .forms import UserForm, ToolForm
 from .utils import send_verification_email
 from django.contrib.auth.models import User
 

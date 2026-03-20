@@ -1,7 +1,6 @@
 from django import forms
-from topic.models import LearningTool
+from .models import LearningTool
 from django.contrib.auth.models import User
-from topic_project.topic.models import Review
 
 
 class ToolForm(forms.ModelForm):
