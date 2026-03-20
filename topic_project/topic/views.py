@@ -1,12 +1,13 @@
-from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpRequest, JsonResponse
+from typing import TypedDict
+from topic.forms import ToolForm
+from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import UserProfile, EmailVerification
 from .forms import UserForm
 from .utils import send_verification_email
-from typing import TypedDict
 from django.contrib.auth.models import User
 
 
@@ -22,6 +23,23 @@ def index(request: HttpRequest) -> HttpResponse:
 
     return render(request, "home.html", context=context_dict)
 
+#add tool view
+def addtool(request):
+    form = ToolForm()
+    
+    if request.method == 'POST':
+        form = ToolForm(request.POST)
+        if form.is_valid():
+            tool = form.save(commit=False)
+            tool.creator = request.user 
+            tool.save()
+            return redirect('index') 
+        else:
+            print(form.errors)
+            
+    context = {'form': form}
+    return render(request, 'topic/addtool.html', context=context)
+    
 
 # def test(request: HttpRequest):
     

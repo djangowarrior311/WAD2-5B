@@ -1,5 +1,27 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.template.defaultfilters import slugify
+
+class LearningTool(models.Model):
+    CATEGORIES = (
+        ('AI', 'AI'),
+        ('NOTE', 'Note Taking'),
+        ('FLASH', 'Flashcard'),
+        ('OTHER', 'Other'),
+    )
+    
+    name = models.CharField(max_length=128, unique=True)
+    description = models.TextField()
+    category = models.CharField(max_length=5, choices=CATEGORIES, default='OTHER')
+    link = models.URLField()
+    score = models.FloatField(default=0.0)
+    creator = models.ForeignKey(User, on_delete=models.CASCADE, related_name='createdtools')
+    likes = models.ManyToManyField(User, related_name='likedtools', blank=True)
+    slug = models.SlugField(unique=True)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(LearningTool, self).save(*args, **kwargs)
 from django.utils import timezone
 from datetime import timedelta
 from typing import Any

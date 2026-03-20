@@ -17,6 +17,10 @@ from django.contrib import admin
 from django.urls import path, include
 from topic_project.topic import views
 
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('', views.index, name='index'),
+    path('addtool/', views.addtool, name='addtool'),
 from django.urls import URLPattern, URLResolver
 
 urlpatterns: list[URLPattern | URLResolver] = [
