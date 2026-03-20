@@ -17,5 +17,7 @@ venv.bak/
 .conda
 
 # Visual Studio Code # 
-.vscode
 .history
+
+# Tests
+test_config.py

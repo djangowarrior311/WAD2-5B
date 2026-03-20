@@ -21,6 +21,25 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 TEMPLATE_DIR = os.path.join(BASE_DIR, 'templates')
 STATIC_DIR = os.path.join(BASE_DIR, 'static')
 
+LOGIN_URL = '/topic/login/'
+LOGIN_REDIRECT_URL = '/topic/'
+
+
+
+#EMAIL stuff
+
+# use for testing
+#EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = "topicwebsiteregistration@gmail.com"
+DEFAULT_FROM_EMAIL = "Topic Website <topicwebsiteregistration@gmail.com>"
+EMAIL_HOST_PASSWORD = "xeplrcfnjkgdysyi"
+EMAIL_PASSWORD = "98127y30891nhoihno87rqnym98-r cmsdkldak;"
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
 
@@ -42,7 +61,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'topic'
+    'topic_project.topic'
 ]
 
 MIDDLEWARE = [
@@ -55,7 +74,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'topic_project.urls'
+ROOT_URLCONF = 'topic_project.topic_project.urls'
 
 
 class Templates(TypedDict):
@@ -81,7 +100,7 @@ TEMPLATES: list[Templates] = [
     },
 ]
 
-WSGI_APPLICATION = 'topic_project.wsgi.application'
+WSGI_APPLICATION = 'topic_project.topic_project.wsgi.application'
 
 
 # Database

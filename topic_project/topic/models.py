@@ -22,20 +22,68 @@ class LearningTool(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(LearningTool, self).save(*args, **kwargs)
+from django.utils import timezone
+from datetime import timedelta
+from typing import Any
+from random import randint
+
+# Create your models here.
+
+class UserProfile(models.Model):
+    # This line is required. Links UserProfile to a User model instance.
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+    
+
+
+class EmailVerification(models.Model):
+    email = models.EmailField()
+    code = models.CharField(max_length=6)
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    def save(self, *args: Any, **kwargs: Any) -> None:
+        if not self.code:
+            self.code = f"{randint(100000, 999999)}"
+        super().save(*args, **kwargs)
+    
+    def is_expired(self):
+        return timezone.now() > self.created_at + timedelta(minutes=10)
+
+
+
+class Tag(models.Model):
+    TAG_NAME_MAX_LENGTH = 128
+
+    name = models.CharField(max_length=TAG_NAME_MAX_LENGTH, unique=True)
 
     def __str__(self):
         return self.name
 
+class Tool(models.Model):
+    TOOL_NAME_MAX_LENGTH = 128
 
-
-# this is for Syon's review system, which is separate from the tool form
-#@login_required
-class Review(models.Model):
-    learningtool = models.ForeignKey(LearningTool, on_delete=models.CASCADE, related_name='reviews')
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='reviews_authored')
-    rating = models.FloatField(default=0.0) 
-    sentence = models.CharField(max_length=256, blank=True) 
+    name = models.CharField(max_length=TOOL_NAME_MAX_LENGTH, unique=True)
+    url = models.URLField()
+    tags = models.ManyToManyField(Tag)
 
     def __str__(self):
-        return f"review by {self.author.username} for {self.learningtool.name}"
-    
+        return self.name
+
+class Review(models.Model):
+    REVIEW_MAX_LENGTH = 2000
+    RATING_CHOICES = (
+        (1,"*"),
+        (2,"**"),
+        (3,"***"),
+        (4,"****"),
+        (5,"*****"),
+    )
+
+    tool = models.ForeignKey(Tool, on_delete=models.CASCADE)
+    rating = models.IntegerField(choices=RATING_CHOICES, default=None)
+    review_content = models.TextField(max_length=REVIEW_MAX_LENGTH)
+
+    def __str__(self):
+        return self.review_content

@@ -28,6 +28,13 @@ h1 {
 form div {
     margin-bottom: 20px;
     font-weight: bold;
+body {
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  background-color: white;
+  flex-flow: column nowrap;
+  justify-content: space-between;
 }
 
 /* styling the actual input boxes so you can actually see what you are typing */
@@ -56,3 +63,13 @@ input[type="submit"] {
 input[type="submit"]:hover {
     background-color: #000000;
     color
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.logo {
+  aspect-ratio: 1;
+}
