@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import UserProfile, EmailVerification, Tag
+from .models import UserProfile, EmailVerification, Tag, LearningTool
 from .forms import UserForm, ToolForm
 from .utils import send_verification_email
 from django.contrib.auth.models import User
@@ -175,18 +175,39 @@ def check_email(request: HttpRequest) -> JsonResponse:
     return JsonResponse({"available": not exists})
 
 
+def clamp(a: int, min: int, max: int):
+    if a > max:
+        return max
+    elif a < min:
+        return min
+    return a
+
+
 # getting tool results
+MAX_RESULTS = 50
+
 # def results_request(request: HttpRequest) -> JsonResponse:
 #     query = request.GET.get("request", None)
+#     results = request.GET.get("results", "0")
 #     if query is None:
-#         return JsonResponse([])
+#         return JsonResponse({"data": []})
+    
+#     try:
+#         int_results = int(results)
+#     except ValueError:
+#         int_results = 0
+
+#     tools = LearningTool.objects.filter()[:clamp(int_results, 1, MAX_RESULTS)]
+
+#     return JsonResponse({"data": [{"name": i.name, "url": i.} for i in tools]})
+    
+    
 
 
 def get_tags(request: HttpRequest) -> JsonResponse:
     if request.method != "GET":
         return JsonResponse({"data": []})
-    else:
-        tags = Tag.objects.all()
-        return JsonResponse({"data": [i.name for i in tags]})
+    tags = Tag.objects.all()
+    return JsonResponse({"data": [i.name for i in tags]})
 
     

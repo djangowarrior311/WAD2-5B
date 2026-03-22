@@ -3,11 +3,14 @@ const filterBar = document.getElementById("search-filter");
 const resultsDiv = document.getElementById("results")
 const searchBar = document.querySelector("#search-filter p");
 
-let tools = {};
-
+let results = [];
+const RESULTS_PER_PAGE = 20;
 
 const defaultDivInner = filterBar.innerHTML;
 
+
+// pagination
+const pageButtons = document.querySelector("#pagination div")
 
 function populateDivBar(categories) {
     // populating the div bar
@@ -46,7 +49,7 @@ function updateResults(results) {
 }
 
 
-httpGetAsync("topic/home/get_tags", updateResults)
+httpGetAsync("topic/home/get_tags", populateDivBar)
 
 
 // triggered by html
@@ -55,5 +58,5 @@ function search() {
     let ul = document.getElementById("ul");
     let li = ul.getElementsByTagName("li");
 
-
+    
 }

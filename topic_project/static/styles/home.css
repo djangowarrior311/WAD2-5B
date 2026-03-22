@@ -55,8 +55,7 @@ body::before {
     border: 2px solid #ccc;
     border-radius: 6px;
     cursor: pointer;
-    font-family: sans-serif;
-    transition: all 0.2s ease;
+    transition: all 0.1s ease;
 }
 
 #results {

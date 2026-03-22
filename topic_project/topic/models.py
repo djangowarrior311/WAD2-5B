@@ -61,15 +61,15 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-class Tool(models.Model):
-    TOOL_NAME_MAX_LENGTH = 128
+# class Tool(models.Model):
+#     TOOL_NAME_MAX_LENGTH = 128
 
-    name = models.CharField(max_length=TOOL_NAME_MAX_LENGTH, unique=True)
-    url = models.URLField()
-    tags = models.ManyToManyField(Tag)
+#     name = models.CharField(max_length=TOOL_NAME_MAX_LENGTH, unique=True)
+#     url = models.URLField()
+#     tags = models.ManyToManyField(Tag)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 class Review(models.Model):
     REVIEW_MAX_LENGTH = 2000
@@ -81,7 +81,7 @@ class Review(models.Model):
         (5,"*****"),
     )
 
-    tool = models.ForeignKey(Tool, on_delete=models.CASCADE)
+    tool = models.ForeignKey(LearningTool, on_delete=models.CASCADE)
     rating = models.IntegerField(choices=RATING_CHOICES, default=None)
     review_content = models.TextField(max_length=REVIEW_MAX_LENGTH)
 
