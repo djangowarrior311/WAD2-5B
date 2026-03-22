@@ -59,6 +59,16 @@ body::before {
     transition: all 0.2s ease;
 }
 
+#results {
+    list-style: none;
+}
+
+#results li {
+    min-width: 50vw;
+    font-size: 1.4rem;
+    margin: 1vw;
+}
+
 /* 
 #categories {
     padding: 1vw

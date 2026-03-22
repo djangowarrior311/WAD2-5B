@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import UserProfile, EmailVerification
+from .models import UserProfile, EmailVerification, Tag
 from .forms import UserForm, ToolForm
 from .utils import send_verification_email
 from django.contrib.auth.models import User
@@ -173,3 +173,20 @@ def check_email(request: HttpRequest) -> JsonResponse:
     
     exists = User.objects.filter(email=email).exists()
     return JsonResponse({"available": not exists})
+
+
+# getting tool results
+# def results_request(request: HttpRequest) -> JsonResponse:
+#     query = request.GET.get("request", None)
+#     if query is None:
+#         return JsonResponse([])
+
+
+def get_tags(request: HttpRequest) -> JsonResponse:
+    if request.method != "GET":
+        return JsonResponse({"data": []})
+    else:
+        tags = Tag.objects.all()
+        return JsonResponse({"data": [i.name for i in tags]})
+
+    

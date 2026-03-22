@@ -5,6 +5,7 @@ app_name = "topic"
 
 urlpatterns = [
     path("home/", views.index, name = "home"),
+    path("home/get_tags", views.get_tags, name="get_tags"),
     path("register/", views.register, name = "register"),
     path("register/verify/", views.verify_email, name="verify_email"),
     path("register/resend/", views.resend_code, name="resend_code"),

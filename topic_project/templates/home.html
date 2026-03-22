@@ -24,10 +24,14 @@
     </div>
 
     <!-- populated with a script, don't panic! -->
-    <div id="search-filter" class="center">
+    <div id="search-filter" class="center", onkeyup="search">
         <p style="padding: 0.4rem">Filter by tag: </p>
     </div>
     <script src="{% static 'js/search_filter.js' %}" type="module"></script>
+
+    <ul id="results"> 
+
+    </ul>
 </div>
 
 {% endblock %}
