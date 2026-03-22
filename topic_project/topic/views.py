@@ -202,8 +202,6 @@ MAX_RESULTS = 50
 #     return JsonResponse({"data": [{"name": i.name, "url": i.} for i in tools]})
     
     
-
-
 def get_tags(request: HttpRequest) -> JsonResponse:
     if request.method != "GET":
         return JsonResponse({"data": []})

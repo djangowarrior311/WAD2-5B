@@ -58,5 +58,5 @@ function search() {
     let ul = document.getElementById("ul");
     let li = ul.getElementsByTagName("li");
 
-    
+    httpGetAsync("topic/home/")
 }
