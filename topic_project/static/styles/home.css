@@ -66,6 +66,7 @@ body::before {
     min-width: 50vw;
     font-size: 1.4rem;
     margin: 1vw;
+    display: table;
 }
 
 /* 

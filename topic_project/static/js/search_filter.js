@@ -3,16 +3,11 @@ const filterBar = document.getElementById("search-filter");
 const resultsDiv = document.getElementById("results")
 const searchBar = document.querySelector(".search-box input");
 
-let currentPage = 0;
-let prevRequest = "";
-const RESULTS_PER_PAGE = 20;
 
+// search filters
 const defaultDivInner = filterBar.innerHTML;
+let buttons = filterBar.getElementsByTagName("button");
 
-
-// pagination
-const pageButtonDiv = document.querySelector("#pagination div");
-const pageButtons = [];
 
 function populateDivBar(categories) {
     // populating the div bar
@@ -23,7 +18,6 @@ function populateDivBar(categories) {
     }
 }
 
-let buttons = filterBar.getElementsByTagName("button");
 
 for (const button of buttons) {
     let toggledOn = false;
@@ -35,9 +29,18 @@ for (const button of buttons) {
     });
 }
 
+// pagination
+let pages = 0;
+let currentPage = 0;
+let prevRequest = "";
+const RESULTS_PER_PAGE = 1;
+const pageButtonDiv = document.querySelector("#pagination div");
+const leftArrowButton = document.querySelector("#left-arrow");
+const rightArrowButton = document.querySelector("#right-arrow");
+const pageButtons = [];
+
 
 function addResult(result, url) {
-    console.log(`<li><a href=${url}>${result}</a></li>`);
     resultsDiv.innerHTML += `<li><a href=${url}>${result}</a></li>`
 }
 
@@ -50,12 +53,25 @@ function renderPageButtons() {
 }
 
 
+function disableArrows() {
+    rightArrowButton.disabled = currentPage > pages - 2;
+    leftArrowButton.disabled = currentPage == 0;
+}
+
+
+function pageButtonClick(newPageNumber) {
+    currentPage = newPageNumber;
+    disableArrows();
+    httpGetAsync(`topic/home/get_search_results?request=${prevRequest}&offset=${RESULTS_PER_PAGE * newPageNumber}`, updateResults)
+}
+
+
 function addPageButton(pageNumber) {
     const button = document.createElement("button");
     const buttonLabel = document.createTextNode(String(pageNumber + 1));
+    button.disabled = pageNumber == currentPage;
     button.addEventListener("click", () => {
-        currentPage = pageNumber;
-        httpGetAsync(`topic/home/get_search_results?request=${prevRequest}&offset=${RESULTS_PER_PAGE * pageNumber}`, updateResults)
+        pageButtonClick(pageNumber);
     })
     button.appendChild(buttonLabel);
     pageButtons.push(button);
@@ -63,9 +79,11 @@ function addPageButton(pageNumber) {
 
 
 function updatePageButtons(totalResults) {
-    const pagesNeeded = Math.floor(totalResults / RESULTS_PER_PAGE);
+    pages = Math.floor(totalResults / RESULTS_PER_PAGE);
+    disableArrows();
+    // clear the array
     pageButtons.length = 0;
-    for (let i = 0; i < pagesNeeded; i++) {
+    for (let i = 0; i < pages; i++) {
         addPageButton(i);
     }
     renderPageButtons();
@@ -73,12 +91,10 @@ function updatePageButtons(totalResults) {
 
 
 function updateResults(results) {
-    console.log(results.data)
     const tools = results.data;
     // total tools in database for this queery (to figure out how many pages)
     const totalAvailable = results.total;
     updatePageButtons(totalAvailable);
-
     // what was actually returned
     const actualReceived = tools.length;
     resultsDiv.innerHTML = ""
@@ -89,10 +105,6 @@ function updateResults(results) {
 }
 
 
-httpGetAsync("topic/home/get_tags", populateDivBar);
-
-
-// triggered by html
 function search(event) {
     if (event.key != "Enter") {return;}
 
@@ -102,6 +114,9 @@ function search(event) {
     httpGetAsync(`topic/home/get_search_results?request=${prevRequest}&offset=${RESULTS_PER_PAGE * currentPage}`, updateResults)
 }
 
-
+// initially populate the pages
+httpGetAsync("topic/home/get_tags", populateDivBar);
 updatePageButtons(0);
+rightArrowButton.addEventListener("click", () => pageButtonClick(currentPage + 1))
+leftArrowButton.addEventListener("click", () => pageButtonClick(currentPage - 1));
 searchBar.addEventListener("keyup", search)
