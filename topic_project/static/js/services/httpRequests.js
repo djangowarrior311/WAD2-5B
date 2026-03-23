@@ -7,13 +7,11 @@
 export function httpGetAsync(url, callback) {
     let request = new XMLHttpRequest();
     request.onreadystatechange = function() { 
-        if (request.readyState == 4 && request.status == 200) {
-            console.log(request.responseText)
-            callback(JSON.parse(request.responseText).data);
-        }
-            
+        if (request.readyState != 4) {return;}
+        if (request.status != 200) {return;}
+        callback(JSON.parse(request.responseText));        
     }
     
-    request.open("GET", url, true); // true for asynchronous 
-    request.send(null);
+    request.open("GET", url); // true for asynchronous 
+    request.send();
 }
