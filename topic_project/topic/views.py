@@ -9,6 +9,11 @@ from .forms import UserForm, ToolForm
 from .utils import send_verification_email
 from django.contrib.auth.models import User
 
+from django.db.models import Count, Q
+
+
+import json
+
 
 class TestContext(TypedDict):
     announcement: str
@@ -186,20 +191,28 @@ def clamp(a: int, min: int, max: int):
 # getting tool results
 MAX_RESULTS = 50
 
-# def results_request(request: HttpRequest) -> JsonResponse:
-#     query = request.GET.get("request", None)
-#     results = request.GET.get("results", "0")
-#     if query is None:
-#         return JsonResponse({"data": []})
-    
-#     try:
-#         int_results = int(results)
-#     except ValueError:
-#         int_results = 0
+def get_search_results(request: HttpRequest) -> JsonResponse:
+    query = request.GET.get("request", None)
+    offset = request.GET.get("offset", "0")
 
-#     tools = LearningTool.objects.filter()[:clamp(int_results, 1, MAX_RESULTS)]
+    print(query, offset)
 
-#     return JsonResponse({"data": [{"name": i.name, "url": i.} for i in tools]})
+    try:
+        offset = int(offset)
+    except ValueError:
+        offset = 0
+
+    if query is None:
+        tools = LearningTool.objects.all()
+    else:
+        # can't use postgres' better search tools because of weird error '@'?
+        tools = LearningTool.objects.filter(Q(description__icontains=query) | Q(name__icontains=query))
+
+    # get count of results
+    n_tools = tools.count()
+
+    return JsonResponse({"data": [{"name": i.name, "url": i.link} for i in tools[offset:MAX_RESULTS + offset]],
+                         "total": n_tools})
     
     
 def get_tags(request: HttpRequest) -> JsonResponse:

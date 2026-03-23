@@ -5,6 +5,7 @@
  * @return {void}
  */
 export function httpGetAsync(url, callback) {
+    console.log(`HTTP GET: ${url}`)
     let request = new XMLHttpRequest();
     request.onreadystatechange = function() { 
         if (request.readyState != 4) {return;}
