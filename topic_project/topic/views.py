@@ -8,6 +8,7 @@ from .models import UserProfile, EmailVerification, Tag, LearningTool, Review
 from .forms import UserForm, ToolForm, ReviewForm
 from .utils import send_verification_email
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 from django.db.models import Count, Q
 
@@ -235,10 +236,12 @@ def add_review(request: HttpRequest, learning_tool_slug) -> HttpResponse:
         if form.is_valid():
             if tool:
                 review = form.save(commit=False)
-                review.user = request.user # not sure about this line of code
+                review.user = request.user
                 review.tool = tool
                 review.save()
-                return redirect("topic:home") # change this later
+                return redirect(reverse('topic:show_tool',
+                                        kwargs={'learning_tool_slug':
+                                                learning_tool_slug}))
         else:
             print(form.errors)
     context_dict = {"form": form, "tool": tool}
@@ -248,10 +251,10 @@ def show_tool(request: HttpRequest, learning_tool_slug) -> HttpResponse:
     context_dict = {}
     try:
         tool = LearningTool.objects.get(slug=learning_tool_slug)
-        #reviews = Review.objects.filter(tool=tool)
-        #context_dict['reviews'] = reviews
+        reviews = Review.objects.filter(tool=tool)
+        context_dict['reviews'] = reviews
         context_dict['tool'] = tool
     except LearningTool.DoesNotExist:
-        #context_dict['reviews'] = None
+        context_dict['reviews'] = None
         context_dict['tool'] = None
     return render(request, 'tool.html', context=context_dict)

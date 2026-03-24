@@ -16,8 +16,18 @@
 {% block body_block %}
 {% if tool %}
     <h1>{{ tool.name }}</h1>
+    {% for review in reviews %}
+    <div>
+        <ul>
+            <li>user: {{review.user}}</li>
+            <li>tool: {{review.tool}}</li>
+            <li>rating: {{review.rating}}</li>
+            <li>review content: {{review.review_content}}</li>
+        </ul>
+    </div>
+    {% endfor %}
+    <br><a href="{%url 'topic:add_review' tool.slug %}">Review</a>
 {% else %}
-    The specified category does not exist.
+    The specified tool does not exist.
 {% endif %}
-<a href="{%url 'topic:add_review' tool.slug %}">Add Page</a>
 {% endblock %}

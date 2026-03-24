@@ -39,6 +39,8 @@ class LearningTool(models.Model):
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(LearningTool, self).save(*args, **kwargs)
+    def __str__(self):
+        return self.name
 
 # Create your models here.
 
@@ -80,4 +82,4 @@ class Review(models.Model):
     review_content = models.TextField(max_length=REVIEW_MAX_LENGTH)
 
     def __str__(self):
-        return f"{self.user} ({self.rating}): {self.review_content}"
+        return f"{self.user}({self.rating}): {self.tool}"

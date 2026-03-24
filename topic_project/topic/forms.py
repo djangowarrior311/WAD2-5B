@@ -19,7 +19,7 @@ class ToolForm(forms.ModelForm):
         fields = ('name', 'description', 'link', 'tags')
 
 class ReviewForm(forms.ModelForm):
-    rating = forms.IntegerField(required=True)
+    rating = forms.ChoiceField(required=True, choices=Review.RATING_CHOICES)
     review_content = forms.CharField(widget=forms.Textarea, required=True)
     class Meta:
         model = Review
