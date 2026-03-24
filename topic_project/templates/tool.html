@@ -16,6 +16,9 @@
 {% block body_block %}
 {% if tool %}
     <h1>{{ tool.name }}</h1>
+    <h2><a href={{ tool.link }} target="_blank">Visit Site</a></h2>
+
+    <!-- list of reviews -->    
     {% for review in reviews %}
     <div>
         <ul>
@@ -26,7 +29,10 @@
         </ul>
     </div>
     {% endfor %}
-    <br><a href="{%url 'topic:add_review' tool.slug %}">Review</a>
+
+    <p>Average Rating: {{ tool.average_score }}</p>
+
+    <a href="{%url 'topic:add_review' tool.slug %}">Review</a>
 {% else %}
     The specified tool does not exist.
 {% endif %}
