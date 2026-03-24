@@ -1,5 +1,5 @@
 from django import forms
-from .models import LearningTool
+from .models import LearningTool, Review
 from django.contrib.auth.models import User
 
 
@@ -16,6 +16,13 @@ class ToolForm(forms.ModelForm):
     class Meta:
         model = LearningTool
         fields = ('name', 'description', 'category', 'link')
+
+class ReviewForm(forms.ModelForm):
+    rating = forms.IntegerField(required=True)
+    review_content = forms.CharField(widget=forms.Textarea, required=True)
+    class Meta:
+        model = Review
+        exclude = ('user', 'tool')
 
 
 class UserForm(forms.ModelForm):

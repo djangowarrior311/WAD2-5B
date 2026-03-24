@@ -68,10 +68,17 @@ class Tag(models.Model):
 
 class Review(models.Model):
     REVIEW_MAX_LENGTH = 2000
+    RATING_CHOICES = [
+        (1,"*"),
+        (2,"**"),
+        (3,"***"),
+        (4,"****"),
+        (5,"*****"),
+    ]
 
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     tool = models.ForeignKey(LearningTool, on_delete=models.CASCADE)
-    rating = models.IntegerField()
+    rating = models.IntegerField(default=0,choices=RATING_CHOICES)
     review_content = models.TextField(max_length=REVIEW_MAX_LENGTH)
 
     def __str__(self):

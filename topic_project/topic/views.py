@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .models import UserProfile, EmailVerification, Tag, LearningTool
-from .forms import UserForm, ToolForm
+from .forms import UserForm, ToolForm, ReviewForm
 from .utils import send_verification_email
 from django.contrib.auth.models import User
 
@@ -221,4 +221,25 @@ def get_tags(request: HttpRequest) -> JsonResponse:
     tags = Tag.objects.all()
     return JsonResponse({"data": [i.name for i in tags]})
 
-    
+@login_required
+def add_review(request: HttpRequest, learning_tool_slug) -> HttpResponse:
+    try:
+        tool = LearningTool.objects.get(slug=learning_tool_slug)
+    except LearningTool.DoesNotExist:
+        tool = None
+    if tool==None:
+        return redirect('topic:home')
+    form = ReviewForm()
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            if tool:
+                review = form.save(commit=False)
+                review.user = request.user # not sure about this line of code
+                review.tool = tool
+                review.save()
+                return redirect("topic:home") # change this later
+        else:
+            print(form.errors)
+    context_dict = {"form": form, "tool": tool}
+    return render(request, "add_review.html", context=context_dict) # add template later
