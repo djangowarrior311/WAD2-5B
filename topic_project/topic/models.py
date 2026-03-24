@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.template.defaultfilters import slugify
+from django.db.models import Avg
 
 class LearningTool(models.Model):
     CATEGORIES = (
@@ -19,9 +20,13 @@ class LearningTool(models.Model):
     likes = models.ManyToManyField(User, related_name='likedtools', blank=True)
     slug = models.SlugField(unique=True)
 
+    def average_score(self):
+        return Review.objects.filter(tool=self).aggregate(Avg("rating", default=0))
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(LearningTool, self).save(*args, **kwargs)
+
 from django.utils import timezone
 from datetime import timedelta
 from typing import Any
@@ -73,17 +78,11 @@ class Tag(models.Model):
 
 class Review(models.Model):
     REVIEW_MAX_LENGTH = 2000
-    RATING_CHOICES = (
-        (1,"*"),
-        (2,"**"),
-        (3,"***"),
-        (4,"****"),
-        (5,"*****"),
-    )
 
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     tool = models.ForeignKey(LearningTool, on_delete=models.CASCADE)
-    rating = models.IntegerField(choices=RATING_CHOICES, default=None)
+    rating = models.IntegerField()
     review_content = models.TextField(max_length=REVIEW_MAX_LENGTH)
 
     def __str__(self):
-        return self.review_content
+        return f"{self.user} ({self.rating}): {self.review_content}"
