@@ -1,29 +1,27 @@
-{% extends 'main-base.html' %}
-{% load static %}
+{% extends 'base.html' %} 
 
-{% block stylesheets %}
-    {{ block.super }}
-    <!--
-        <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
-        <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
-    -->
+{% block title_block %}
+    add review
 {% endblock %}
 
-{% block body_block %}
-<h1>Reviewing {{ tool.name }}</h1>
-    <div>
-        <form id="review_form" method="post" action="{%url 'topic:add_review'%}">
-            {% csrf_token %}
-            {% csrf_token %}
-            {% for hidden in form.hidden_fields %}
-                {{ hidden }}
-            {% endfor %}
-            {% for field in form.visible_fields %}
-                {{ field.errors }}
-                {{ field.help_text }}
+{% block base_body_block %} 
+    <h1>add review</h1>
+    
+    <form id="review_form" method="post" action="{% url 'topic:add_review' tool.slug %}">
+        {% csrf_token %}
+        
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+        
+        {% for field in form.visible_fields %}
+            <div style="margin-bottom: 15px;">
+                {{ field.help_text }}<br>
                 {{ field }}
-            {% endfor %}
-            <input type="submit" name="submit" value="Post Review" />
-        </form>
-    </div>
+                {{ field.errors }}
+            </div>
+        {% endfor %}
+        
+        <input type="submit" name="submit" value="add review" />
+    </form>
 {% endblock %}
