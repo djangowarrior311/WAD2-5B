@@ -66,16 +66,6 @@ class Tag(models.Model):
     def __str__(self):
         return self.name
 
-# class Tool(models.Model):
-#     TOOL_NAME_MAX_LENGTH = 128
-
-#     name = models.CharField(max_length=TOOL_NAME_MAX_LENGTH, unique=True)
-#     url = models.URLField()
-#     tags = models.ManyToManyField(Tag)
-
-#     def __str__(self):
-#         return self.name
-
 class Review(models.Model):
     REVIEW_MAX_LENGTH = 2000
 
