@@ -4,7 +4,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import UserProfile, EmailVerification, Tag, LearningTool
+from .models import UserProfile, EmailVerification, Tag, LearningTool, Review
 from .forms import UserForm, ToolForm, ReviewForm
 from .utils import send_verification_email
 from django.contrib.auth.models import User
@@ -242,4 +242,16 @@ def add_review(request: HttpRequest, learning_tool_slug) -> HttpResponse:
         else:
             print(form.errors)
     context_dict = {"form": form, "tool": tool}
-    return render(request, "add_review.html", context=context_dict) # add template later
+    return render(request, "add_review.html", context=context_dict)
+
+def show_tool(request: HttpRequest, learning_tool_slug) -> HttpResponse:
+    context_dict = {}
+    try:
+        tool = LearningTool.objects.get(slug=learning_tool_slug)
+        #reviews = Review.objects.filter(tool=tool)
+        #context_dict['reviews'] = reviews
+        context_dict['tool'] = tool
+    except LearningTool.DoesNotExist:
+        #context_dict['reviews'] = None
+        context_dict['tool'] = None
+    return render(request, 'tool.html', context=context_dict)
