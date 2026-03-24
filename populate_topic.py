@@ -33,7 +33,7 @@ def populate():
         {
             'name': 'Notion',
             'description': 'a massive note taking and workspace app. great for organizing university modules.',
-            'tags': ['Note Taking'],
+            'tags': ['Note Taking', 'AI'],
             'link': 'https://notion.so',
             'score': 4.8
         },
