@@ -100,7 +100,9 @@ function updateResults(results) {
     resultsDiv.innerHTML = ""
     for (let i = 0; i < Math.min(actualReceived, RESULTS_PER_PAGE); i++) {
         const element = tools[i];
-        addResult(element.name, element.url);
+        addResult(element.name, element.url); // i think this needs to be changed so that it goes to the specific tool's tool.html page
+                                                // been trying for a while, but can't figure out how to do it.
+                                                // it should direct to topic:show_tool tool.slug or topic/tools/<slug:learning_tool_slug>/
     }
 }
 

@@ -54,7 +54,7 @@ def populate():
         {
             'name': 'Wikipedia',
             'description': 'the largest encyclopedia',
-            'tags': ['Other'],
+            'tags': ['Research', 'Other'],
             'link': 'https://www.wikipedia.org/',
             'score': 4.7
         },
@@ -64,6 +64,127 @@ def populate():
             'tags': ['AI', 'Note Taking', 'Flashcard', 'Other'],
             'link': 'https://office.com',
             'score': 2.9
+        },
+        {
+            'name': 'JSTOR',
+            'description': 'a place to get scholarly articles',
+            'tags': ['Research'],
+            'link': 'https://www.jstor.org/',
+            'score': 5.0
+        }
+    ]
+
+
+    reviews = [
+        {
+            'tool': 'quizlet',
+            'rating': 5,
+            'review_content': 'This website helped me so much with flashcards!'
+        },
+        {
+            'tool': 'quizlet',
+            'rating': 2,
+            'review_content': 'i hate this website! made me fail'
+        },
+        {
+            'tool': 'quizlet',
+            'rating': 3,
+            'review_content': 'i guess this website\'s okay..'
+        },
+        {
+            'tool': 'notion',
+            'rating': 4,
+            'review_content': 'This website helped me so much with note taking!'
+        },
+        {
+            'tool': 'notion',
+            'rating': 1,
+            'review_content': 'full of ai slop'
+        },
+        {
+            'tool': 'notion',
+            'rating': 3,
+            'review_content': 'goodnotes and obsidian are wayyyy better'
+        },
+        {
+            'tool': 'notion',
+            'rating': 2,
+            'review_content': 'not sure what to write for this review...'
+        },
+        {
+            'tool': 'chatgpt',
+            'rating': 1,
+            'review_content': 'ujkdadakljgdafkl'
+        },
+        {
+            'tool': 'chatgpt',
+            'rating': 2,
+            'review_content': 'i hate this website! made me fail'
+        },
+        {
+            'tool': 'chatgpt',
+            'rating': 3,
+            'review_content': 'i guess this website\'s okay..'
+        },
+        {
+            'tool': 'youtube',
+            'rating': 5,
+            'review_content': 'youtube helped me so much with flashcards!'
+        },
+        {
+            'tool': 'youtube',
+            'rating': 2,
+            'review_content': 'i hate youtube! made me fail'
+        },
+        {
+            'tool': 'youtube',
+            'rating': 3,
+            'review_content': 'i guess youtube is okay..'
+        },
+        {
+            'tool': 'wikipedia',
+            'rating': 5,
+            'review_content': 'wikipedia helped me so much with flashcards!'
+        },
+        {
+            'tool': 'wikipedia',
+            'rating': 2,
+            'review_content': 'i hate this website! made me fail'
+        },
+        {
+            'tool': 'wikipedia',
+            'rating': 3,
+            'review_content': 'i guess this website\'s okay..'
+        },
+        {
+            'tool': 'office-365',
+            'rating': 5,
+            'review_content': 'office 365 helped me so much with flashcards!'
+        },
+        {
+            'tool': 'office-365',
+            'rating': 2,
+            'review_content': 'i hate this website! made me fail'
+        },
+        {
+            'tool': 'office-365',
+            'rating': 3,
+            'review_content': 'i guess this website\'s okay..'
+        },
+        {
+            'tool': 'jstor',
+            'rating': 5,
+            'review_content': 'jstor helped me so much with flashcards!'
+        },
+        {
+            'tool': 'jstor',
+            'rating': 1,
+            'review_content': 'i hate this website! made me fail'
+        },
+        {
+            'tool': 'jstor',
+            'rating': 4,
+            'review_content': 'i guess this website\'s okay..'
         }
     ]
 
@@ -72,6 +193,10 @@ def populate():
     for tool_data in tools:
         t = add_tool(tool_data, dummy_user)
         print(f"successfully added tool: {t.name} with tags {t.tags}")
+
+    for review in reviews:
+        tool = LearningTool.objects.get(slug=review['tool'])
+        t = add_review(review, dummy_user, tool)
 
 def get_tags(tool_data):
     tags = []
@@ -95,6 +220,16 @@ def add_tool(tool_data, user):
     #t.tags = tool_data['tags']
     t.link = tool_data['link']
     t.score = tool_data['score']
+    t.save()
+    return t
+
+def add_review(reviews, _user, _tool):
+    t = Review.objects.create(
+        user = _user,
+        tool = _tool
+    )
+    t.rating = reviews['rating']
+    t.review_content = reviews['review_content']
     t.save()
     return t
 
