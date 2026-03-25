@@ -60,7 +60,7 @@ def user_login(request: HttpRequest) -> HttpResponse:
         if user is not None:
             login(request, user)
             messages.success(request, f"Welcome back, {username}!")
-            return redirect('topic:home')
+            return redirect('home')
         else:
             messages.error(request, "Invalid username or password.")
     return render(request, "login.html")
@@ -70,7 +70,7 @@ def user_login(request: HttpRequest) -> HttpResponse:
 def user_logout(request: HttpRequest) -> HttpResponse:
     logout(request)
     messages.success(request, "You have been logged out successfully.")
-    return redirect('topic:home')
+    return redirect('home')
 
 # starting register path, takes in the users inputs
 # after being checked by the js code
@@ -237,7 +237,7 @@ def add_review(request: HttpRequest, learning_tool_slug) -> HttpResponse:
     except LearningTool.DoesNotExist:
         tool = None
     if tool==None:
-        return redirect('topic:home')
+        return redirect('home')
     form = ReviewForm()
     if request.method == 'POST':
         form = ReviewForm(request.POST)

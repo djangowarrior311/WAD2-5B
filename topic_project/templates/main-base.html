@@ -20,6 +20,7 @@
 {% endif %}
 <!-- Top bar -->
 <div id="topbar" class="center banner">
+    <a href="{% url 'home' %}">Home</a> |
     {% if user.is_authenticated %}
         <a href="{% url 'topic:logout' %}">Logout</a>
     {% else %}

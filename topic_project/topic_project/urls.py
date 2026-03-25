@@ -19,7 +19,7 @@ from topic_project.topic import views
 from django.urls import URLPattern, URLResolver
 
 urlpatterns: list[URLPattern | URLResolver] = [
-    path('', views.index),
+    path('', views.index, name='home'),
     path('admin/', admin.site.urls),
     path('addtool/', views.addtool, name='addtool'),
     path("topic/", include("topic_project.topic.urls")),
