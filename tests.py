@@ -208,7 +208,6 @@ def test_password_pass():
     assert match.get_text == "✓ Passwords match", "Password should match"
 
 
-
 def run_tests(tests: Callable[[None], None]):
     print("RUNNING TESTS:")
     summary = []
