@@ -34,7 +34,8 @@ class LearningTool(models.Model):
     slug = models.SlugField(unique=True)
 
     def average_score(self):
-        return Review.objects.filter(tool=self).aggregate(average_score=Avg("rating", default=0))['average_score']
+        float_average_score = Review.objects.filter(tool=self).aggregate(average_score=Avg("rating", default=0))['average_score']
+        return f"{float_average_score:.1f}"
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
