@@ -212,7 +212,16 @@ def get_search_results(request: HttpRequest) -> JsonResponse:
     # get count of results
     n_tools = tools.count()
 
-    return JsonResponse({"data": [{"name": i.name, "url": i.link} for i in tools[offset:MAX_RESULTS + offset]],
+    outputdata = []
+
+    for i in tools[offset:MAX_RESULTS + offset]:
+        outputdata.append({
+            "name": i.name,
+            "url": i.link,
+            "review_slug": "topic/tools/" + i.slug
+        })
+
+    return JsonResponse({"data": outputdata,
                          "total": n_tools})
     
     

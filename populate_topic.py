@@ -20,7 +20,7 @@ def populate():
         dummy_user.set_password('neon_highlighter123')
         dummy_user.save()
 
-    tags = LearningTool.CATEGORIES
+    # tags = LearningTool.CATEGORIES
 
     # a list of dictionaries with some starter tools to save us typing them all out on the site
 
@@ -201,7 +201,7 @@ def populate():
         t = add_review(review, dummy_user, tool)
 
 def get_tags(tool_data):
-    tags = []
+    tags: list[Tag] = []
     for tag in tool_data['tags']:
         t = Tag.objects.get_or_create(
             name=tag
@@ -210,17 +210,6 @@ def get_tags(tool_data):
         tags.append(t)
     return tags
 
-    for tag in tags:
-        add_tag(tag[0])
-
-
-def add_tag(tag_name: str):
-    t = Tag.objects.get_or_create(
-        name=tag_name
-    )[0]
-
-    t.save()
-    return t
 
 
 # a quick helper function to keep the main loop clean

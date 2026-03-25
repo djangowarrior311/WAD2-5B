@@ -5,18 +5,31 @@ const searchBar = document.querySelector(".search-box input");
 
 
 // search filters
+// const searchURL = "topic/home/get_search_results?request={0}&offset={}"
 const defaultDivInner = filterBar.innerHTML;
-let buttons = filterBar.getElementsByTagName("button");
+const buttons = [];
+const filtersApplied = {};
+
+
+function formatSearchURL(request, offset) {
+    return `topic/home/get_search_results?request=${request}&offset=${offset}`
+}
 
 
 function populateDivBar(categories) {
     // populating the div bar
     filterBar.innerHTML = defaultDivInner;
-    for (const [key, value] of Object.entries(categories.data)) {
-        tools[key] = [];
-        filterBar.innerHTML += `<button>${value}</button>`;
+    for (const [_, value] of Object.entries(categories.data)) {
+        const button = document.createElement("button");
+        const textNode = document.createTextNode(value);
+        button.appendChild(textNode);
+        filterBar.appendChild(button);
+        buttons.push(button);
     }
 }
+
+
+// let buttons = filterBar.getElementsByTagName("button");
 
 
 for (const button of buttons) {
@@ -25,6 +38,7 @@ for (const button of buttons) {
 
     button.addEventListener("click", () => {
         toggledOn = !toggledOn;
+        filtersApplied[button.textContent] = toggledOn;
         button.style.background = toggledOn? "#757575": defaultColour;
     });
 }
@@ -33,7 +47,7 @@ for (const button of buttons) {
 let pages = 0;
 let currentPage = 0;
 let prevRequest = "";
-const RESULTS_PER_PAGE = 1;
+const RESULTS_PER_PAGE = 10;
 const pageButtonDiv = document.querySelector("#pagination div");
 const leftArrowButton = document.querySelector("#left-arrow");
 const rightArrowButton = document.querySelector("#right-arrow");
@@ -62,7 +76,7 @@ function disableArrows() {
 function pageButtonClick(newPageNumber) {
     currentPage = newPageNumber;
     disableArrows();
-    httpGetAsync(`topic/home/get_search_results?request=${prevRequest}&offset=${RESULTS_PER_PAGE * newPageNumber}`, updateResults)
+    httpGetAsync(formatSearchURL(prevRequest, RESULTS_PER_PAGE * newPageNumber), updateResults)
 }
 
 
@@ -100,19 +114,17 @@ function updateResults(results) {
     resultsDiv.innerHTML = ""
     for (let i = 0; i < Math.min(actualReceived, RESULTS_PER_PAGE); i++) {
         const element = tools[i];
-        addResult(element.name, element.url); // i think this needs to be changed so that it goes to the specific tool's tool.html page
-                                                // been trying for a while, but can't figure out how to do it.
-                                                // it should direct to topic:show_tool tool.slug or topic/tools/<slug:learning_tool_slug>/
+        console.log(element.review_slug);
+        addResult(element.name, element.review_slug);
     }
 }
 
 
 function search(event) {
     if (event.key != "Enter") {return;}
-
     let filter = searchBar.value.toUpperCase();
     prevRequest = filter;
-    httpGetAsync(`topic/home/get_search_results?request=${prevRequest}&offset=${RESULTS_PER_PAGE * currentPage}`, updateResults)
+    httpGetAsync(formatSearchURL(prevRequest, RESULTS_PER_PAGE * currentPage), updateResults)
 }
 
 // initially populate the pages
