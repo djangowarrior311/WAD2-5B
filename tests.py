@@ -32,7 +32,7 @@ def visit_url(driver, url):
     except TimeoutException as err:
         raise TimeoutError("Page not loaded") from err
 
-    driver.save_screenshot(f"data/screenshots/{url}.png")
+    # driver.save_screenshot(f"data/screenshots/{url}.png")
 
 
 def test_close_announcements():
@@ -52,9 +52,9 @@ def test_register_accessible():
     register.click()
 
 
-def test_register():
+def test_password_special_characters():
     test_register_accessible()
-    inputs = driver.find_elements(by=By.CSS_SELECTOR, value="form p label")
+    inputs = driver.find_elements(by=By.CSS_SELECTOR, value="form p input")
     [
         username,
         email,
@@ -62,17 +62,151 @@ def test_register():
         confirm_password
     ] = inputs
 
-    username.send_keys("Skrubunger")
-    username.send_email()
+    # should fail
+    username.send_keys("new_username123")
+    email.send_keys("anongus@topic.com")
+    password.send_keys("neon_Highlighter123")
+    confirm_password.send_keys("neon_Highlighter123")
 
-    submit = driver.find_element(by=By.CSS_SELECTOR, value="#submit-btn")
-    submit.click()
+    submit = driver.find_element(by=By.CSS_SELECTOR, value="#req-special")
+    driver.implicitly_wait(0.5)
+
+    assert submit.get_attribute("class") != "valid", "Password should fail special character test"
 
 
-def pre_test():
-    assert EMAIL != "", "Fill out the email in test_config.py"
-    assert USERNAME != "", "Fill out the username in test_config.py"
-    assert PASSWORD != "", "Fill out the password in test_config.py"
+def test_password_length():
+    test_register_accessible()
+    inputs = driver.find_elements(by=By.CSS_SELECTOR, value="form p input")
+    [
+        username,
+        email,
+        password,
+        confirm_password
+    ] = inputs
+
+    # should fail
+    username.send_keys("new_username123")
+    email.send_keys("anongus@topic.com")
+    password.send_keys("Ab1@")
+    confirm_password.send_keys("Ab1@")
+
+    submit = driver.find_element(by=By.CSS_SELECTOR, value="#req-length")
+    driver.implicitly_wait(0.5)
+
+    assert submit.get_attribute("class") != "valid", "Password should fail length check"
+
+
+def test_password_upper_casing():
+    test_register_accessible()
+    inputs = driver.find_elements(by=By.CSS_SELECTOR, value="form p input")
+    [
+        username,
+        email,
+        password,
+        confirm_password
+    ] = inputs
+
+    # should fail
+    username.send_keys("new_username123")
+    email.send_keys("anongus@topic.com")
+    password.send_keys("ALL_UPPER_CASE@1")
+    confirm_password.send_keys("ALL_UPPER_CASE@1")
+
+    submit = driver.find_element(by=By.CSS_SELECTOR, value="#req-uppercase")
+    driver.implicitly_wait(0.5)
+
+    assert not submit.get_attribute("class") != "valid", "Password should fail upper casing check"
+
+
+def test_password_lower_casing():
+    test_register_accessible()
+    inputs = driver.find_elements(by=By.CSS_SELECTOR, value="form p input")
+    [
+        username,
+        email,
+        password,
+        confirm_password
+    ] = inputs
+
+    # should fail
+    username.send_keys("new_username123")
+    email.send_keys("anongus@topic.com")
+    password.send_keys("all_lower_caseE@1")
+    confirm_password.send_keys("all_lower_case@1")
+
+    submit = driver.find_element(by=By.CSS_SELECTOR, value="#req-lowercase")
+    driver.implicitly_wait(0.5)
+
+    assert not submit.get_attribute("class") != "valid", "Password should fail upper casing check"
+
+
+def test_password_match():
+    test_register_accessible()
+    inputs = driver.find_elements(by=By.CSS_SELECTOR, value="form p input")
+    [
+        username,
+        email,
+        password,
+        confirm_password
+    ] = inputs
+
+    # should fail
+    username.send_keys("new_username123")
+    email.send_keys("anongus@topic.com")
+    password.send_keys("goodPassword9123buta##NoMatch@!.")
+    confirm_password.send_keys("goodPassword23buta##NoMatch@!.")
+
+    submit = driver.find_element(by=By.CSS_SELECTOR, value="#password-match")
+    driver.implicitly_wait(0.5)
+
+    assert submit.get_text() != "✓ Passwords match", "Password should fail matching check"
+
+
+def test_password_numbers():
+    test_register_accessible()
+    inputs = driver.find_elements(by=By.CSS_SELECTOR, value="form p input")
+    [
+        username,
+        email,
+        password,
+        confirm_password
+    ] = inputs
+
+    # should fail
+    username.send_keys("new_username123")
+    email.send_keys("anongus@topic.com")
+    password.send_keys("nONumBerz__@")
+    confirm_password.send_keys("nONumBerz__@")
+
+    submit = driver.find_element(by=By.CSS_SELECTOR, value="#req-number")
+    driver.implicitly_wait(0.5)
+
+    assert not submit.get_attribute("class") != "valid", "Password should fail numbers check"
+
+
+def test_password_pass():
+    test_register_accessible()
+    inputs = driver.find_elements(by=By.CSS_SELECTOR, value="form p input")
+    [
+        username,
+        email,
+        password,
+        confirm_password
+    ] = inputs
+
+    # should fail
+    username.send_keys("new_username123")
+    email.send_keys("anongus@topic.com")
+    password.send_keys("goodPassword9123anda##Match@!.")
+    confirm_password.send_keys("goodPassword9123anda##Match@!.")
+
+    strength = driver.find_element(by=By.CSS_SELECTOR, value="#password-strong")
+    match = driver.find_element(by=By.CSS_SELECTOR, value="#password-match")
+    # driver.implicitly_wait(1)
+
+    assert strength.get_attribute("class") == "strength-strong", "Password should be strong"
+    assert match.get_text == "✓ Passwords match", "Password should match"
+
 
 
 def run_tests(tests: Callable[[None], None]):
@@ -97,8 +231,6 @@ def run_tests(tests: Callable[[None], None]):
 
 
 if __name__ == "__main__":
-    pre_test()
-
     print("INITIALISING DRIVER...")
     driver = webdriver.Firefox() # type: ignore
     driver.get("http://127.0.0.1:8000/")
@@ -106,7 +238,12 @@ if __name__ == "__main__":
     tests = [
         test_close_announcements,
         test_register_accessible,
-        test_register
+        test_password_length,
+        test_password_lower_casing,
+        test_password_upper_casing,
+        test_password_special_characters,
+        test_password_match,
+        test_password_pass
     ]
     run_tests(tests)
     print("CLEANING UP")
