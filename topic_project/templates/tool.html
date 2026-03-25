@@ -1,0 +1,39 @@
+{% extends 'main-base.html' %}
+{% load static %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <!--
+        <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
+        <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+    -->
+{% endblock %}
+
+{% block title_block %}
+{{ tool.name }}
+{% endblock %}
+
+{% block body_block %}
+{% if tool %}
+    <h1>{{ tool.name }}</h1>
+    <h2><a href={{ tool.link }} target="_blank">Visit Site</a></h2>
+
+    <!-- list of reviews -->    
+    {% for review in reviews %}
+    <div>
+        <ul>
+            <li>user: {{review.user}}</li>
+            <li>tool: {{review.tool}}</li>
+            <li>rating: {{review.rating}}</li>
+            <li>review content: {{review.review_content}}</li>
+        </ul>
+    </div>
+    {% endfor %}
+
+    <p>Average Rating: {{ tool.average_score }}</p>
+
+    <a href="{%url 'topic:add_review' tool.slug %}">Review</a>
+{% else %}
+    The specified tool does not exist.
+{% endif %}
+{% endblock %}

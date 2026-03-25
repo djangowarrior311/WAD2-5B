@@ -14,4 +14,6 @@ urlpatterns = [
     path("register/check-email/", views.check_email, name = "check_email"),
     path("login/", views.user_login, name="login"),
     path("logout/", views.user_logout, name="logout"),
+    path("tools/<slug:learning_tool_slug>/", views.show_tool, name="show_tool"),
+    path("tools/<slug:learning_tool_slug>/add_review/", views.add_review, name="add_review"),
 ]

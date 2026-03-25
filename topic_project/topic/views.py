@@ -4,10 +4,11 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import UserProfile, EmailVerification, Tag, LearningTool
-from .forms import UserForm, ToolForm
+from .models import UserProfile, EmailVerification, Tag, LearningTool, Review
+from .forms import UserForm, ToolForm, ReviewForm
 from .utils import send_verification_email
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 from django.db.models import Count, Q
 
@@ -221,4 +222,39 @@ def get_tags(request: HttpRequest) -> JsonResponse:
     tags = Tag.objects.all()
     return JsonResponse({"data": [i.name for i in tags]})
 
-    
+@login_required
+def add_review(request: HttpRequest, learning_tool_slug) -> HttpResponse:
+    try:
+        tool = LearningTool.objects.get(slug=learning_tool_slug)
+    except LearningTool.DoesNotExist:
+        tool = None
+    if tool==None:
+        return redirect('topic:home')
+    form = ReviewForm()
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            if tool:
+                review = form.save(commit=False)
+                review.user = request.user
+                review.tool = tool
+                review.save()
+                return redirect(reverse('topic:show_tool',
+                                        kwargs={'learning_tool_slug':
+                                                learning_tool_slug}))
+        else:
+            print(form.errors)
+    context_dict = {"form": form, "tool": tool}
+    return render(request, "add_review.html", context=context_dict)
+
+def show_tool(request: HttpRequest, learning_tool_slug) -> HttpResponse:
+    context_dict = {}
+    try:
+        tool = LearningTool.objects.get(slug=learning_tool_slug)
+        reviews = Review.objects.filter(tool=tool)
+        context_dict['reviews'] = reviews
+        context_dict['tool'] = tool
+    except LearningTool.DoesNotExist:
+        context_dict['reviews'] = None
+        context_dict['tool'] = None
+    return render(request, 'tool.html', context=context_dict)
