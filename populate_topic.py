@@ -7,7 +7,7 @@ import django
 django.setup()
 
 # importing the tables from models.py file
-from topic_project.topic.models import LearningTool, Review
+from topic_project.topic.models import LearningTool, Review, Tag
 from django.contrib.auth.models import User
 
 def populate():
@@ -19,6 +19,8 @@ def populate():
     if created:
         dummy_user.set_password('neon_highlighter123')
         dummy_user.save()
+
+    tags = LearningTool.CATEGORIES
 
     # a list of dictionaries with some starter tools to save us typing them all out on the site
     tools = [
@@ -49,6 +51,19 @@ def populate():
     for tool_data in tools:
         t = add_tool(tool_data, dummy_user)
         print(f"successfully added tool: {t.name}")
+
+    for tag in tags:
+        add_tag(tag[0])
+
+
+def add_tag(tag_name: str):
+    t = Tag.objects.get_or_create(
+        name=tag_name
+    )[0]
+
+    t.save()
+    return t
+
 
 # a quick helper function to keep the main loop clean
 def add_tool(tool_data, user):

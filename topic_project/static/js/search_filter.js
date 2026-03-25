@@ -109,7 +109,6 @@ function search(event) {
     if (event.key != "Enter") {return;}
 
     let filter = searchBar.value.toUpperCase();
-    // httpGetAsync("topic/home/")
     prevRequest = filter;
     httpGetAsync(`topic/home/get_search_results?request=${prevRequest}&offset=${RESULTS_PER_PAGE * currentPage}`, updateResults)
 }
