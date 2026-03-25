@@ -196,8 +196,6 @@ def get_search_results(request: HttpRequest) -> JsonResponse:
     query = request.GET.get("request", None)
     offset = request.GET.get("offset", "0")
 
-    print(query, offset)
-
     try:
         offset = int(offset)
     except ValueError:
@@ -218,7 +216,8 @@ def get_search_results(request: HttpRequest) -> JsonResponse:
         outputdata.append({
             "name": i.name,
             "url": i.link,
-            "review_slug": "topic/tools/" + i.slug
+            "review_slug": "topic/tools/" + i.slug,
+            "tags": [j.name for j in i.tags.all()]
         })
 
     return JsonResponse({"data": outputdata,
