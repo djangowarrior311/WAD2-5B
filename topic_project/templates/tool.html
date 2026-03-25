@@ -3,10 +3,8 @@
 
 {% block stylesheets %}
     {{ block.super }}
-    <!--
-        <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
-        <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
-    -->
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/tool.css' %}">
+    
 {% endblock %}
 
 {% block title_block %}
@@ -17,18 +15,27 @@
 {% if tool %}
     <h1>{{ tool.name }}</h1>
     <h2><a href={{ tool.link }} target="_blank">Visit Site</a></h2>
+    <div>
+        <h3>Tags:</h3>
+        <ul>
+            {% for tag in tool.tags.all %}
+            <li>{{ tag }}</li>
+            {%endfor%}
+        </ul>
+    </div>
 
     <!-- list of reviews -->    
-    {% for review in reviews %}
     <div>
+        <h3>Reviews:</h3>
+        {% for review in reviews %}
         <ul>
             <li>user: {{review.user}}</li>
             <li>tool: {{review.tool}}</li>
             <li>rating: {{review.rating}}</li>
             <li>review content: {{review.review_content}}</li>
         </ul>
+        {% endfor %}
     </div>
-    {% endfor %}
 
     <p>Average Rating: {{ tool.average_score }}</p>
 
