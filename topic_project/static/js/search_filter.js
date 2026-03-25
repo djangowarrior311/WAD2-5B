@@ -10,6 +10,11 @@ const defaultDivInner = filterBar.innerHTML;
 const buttons = [];
 const filtersApplied = {};
 
+let cachedResults = {
+    data: [],
+    total: 0
+};
+
 
 function formatSearchURL(request, offset) {
     return `topic/home/get_search_results?request=${request}&offset=${offset}`
@@ -25,23 +30,22 @@ function populateDivBar(categories) {
         button.appendChild(textNode);
         filterBar.appendChild(button);
         buttons.push(button);
+
+        // handle button:
+        let toggledOn = true;
+        const defaultColour = button.style.background;
+        filtersApplied[button.textContent] = toggledOn;
+        button.style.background = toggledOn? defaultColour: "#757575";
+
+        button.addEventListener("click", () => {
+            toggledOn = !toggledOn;
+            filtersApplied[button.textContent] = toggledOn;
+            button.style.background = toggledOn? defaultColour: "#757575";
+            updateResults(cachedResults);
+        });
     }
 }
 
-
-// let buttons = filterBar.getElementsByTagName("button");
-
-
-for (const button of buttons) {
-    let toggledOn = false;
-    const defaultColour = button.style.background;
-
-    button.addEventListener("click", () => {
-        toggledOn = !toggledOn;
-        filtersApplied[button.textContent] = toggledOn;
-        button.style.background = toggledOn? "#757575": defaultColour;
-    });
-}
 
 // pagination
 let pages = 0;
@@ -54,8 +58,14 @@ const rightArrowButton = document.querySelector("#right-arrow");
 const pageButtons = [];
 
 
-function addResult(result, url) {
-    resultsDiv.innerHTML += `<li><a href=${url}>${result}</a></li>`
+function addResult(tool) {
+    // do not add results for filters we've applied
+    for (const tag of tool.tags) {
+        if (filtersApplied[tag] == false) {
+            return;
+        }
+    }
+    resultsDiv.innerHTML += `<li><a href=${tool.review_slug}>${tool.name}</a></li>`
 }
 
 
@@ -105,6 +115,7 @@ function updatePageButtons(totalResults) {
 
 
 function updateResults(results) {
+    cachedResults = results;
     const tools = results.data;
     // total tools in database for this queery (to figure out how many pages)
     const totalAvailable = results.total;
@@ -114,8 +125,7 @@ function updateResults(results) {
     resultsDiv.innerHTML = ""
     for (let i = 0; i < Math.min(actualReceived, RESULTS_PER_PAGE); i++) {
         const element = tools[i];
-        console.log(element.review_slug);
-        addResult(element.name, element.review_slug);
+        addResult(element);
     }
 }
 
