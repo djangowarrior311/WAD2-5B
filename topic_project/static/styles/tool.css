@@ -1,0 +1,9 @@
+body {
+    background: repeating-linear-gradient(
+        to bottom,
+        #ffffff 0px,
+        #ffffff 22px,
+        #cfe0ff 22px,
+        #cfe0ff 23px
+    );
+}
