@@ -9,14 +9,12 @@
 <!-- Announcements -->
 {% if announcement %}
     <div id="announcements" class="banner">
-        <div class="message">
-            {{ announcement }}
-        </div>
+        <div class="message">{{ announcement }}</div>
         <button class="close-button align-right">✕</button>
     </div>
     <script src="{% static 'js/close_announcement.js' %}"></script>
 {% endif %}
-<!-- Top bar -->
+
 <div id="topbar" class="center banner">
     <a href="{% url 'home' %}">Home</a> |
     {% if user.is_authenticated %}
