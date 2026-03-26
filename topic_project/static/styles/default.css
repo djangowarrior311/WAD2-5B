@@ -1,22 +1,31 @@
-/* setting up the main page colors so it matches our team wireframes */
+/* Base page styling */
 body {
-    background-color: #ffffff; 
-    color: #000000; 
+    background-color: #ffffff;
+    color: #000000;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
+
+    /* keep height but REMOVE flexbox */
+    width: 100vw;
+    min-height: 100vh;
 }
 
 /* keeps everything centered so it doesn't stretch across huge monitors */
 main {
-    padding: 40px;
-    max-width: 800px;
+    padding: 0;              /* removed top padding so banner sits at top */
+    max-width: 900px;
     margin: 0 auto;
 }
 
-/* the neon highlighter header we agreed on for the spec */
+/* spacing for content inside main */
+main > div {
+    margin-top: 1rem;        /* adds breathing room below banner */
+}
+
+/* neon highlighter header */
 h1 {
-    background-color: #FFFF00; 
+    background-color: #FFFF00;
     color: #000000;
     padding: 10px 20px;
     display: inline-block;
@@ -24,31 +33,23 @@ h1 {
     margin-bottom: 30px;
 }
 
-/* spacing out the form fields so they aren't squished together */
+/* spacing out form fields */
 form div {
     margin-bottom: 20px;
     font-weight: bold;
 }
-body {
-  width: 100vw;
-  min-height: 100vh;
-  display: flex;
-  background-color: white;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-}
 
-/* styling the actual input boxes so you can actually see what you are typing */
+/* input styling */
 input[type="text"], input[type="url"], textarea, select {
     width: 100%;
     padding: 12px;
-    border: 2px solid #000000; 
-    background: #f8f8f8; /* slightly off-white so it pops against the background */
+    border: 2px solid #000000;
+    background: #f8f8f8;
     color: black;
     border-radius: 4px;
 }
 
-/* our big neon submit button */
+/* neon submit button */
 input[type="submit"] {
     background-color: #FFFF00;
     color: black;
@@ -60,18 +61,17 @@ input[type="submit"] {
     transition: 0.3s;
 }
 
-/* makes the button invert colors when you hover over it */
 input[type="submit"]:hover {
     background-color: #000000;
     color: #ff00ff;
 }
+
 .center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-
 .logo {
-  aspect-ratio: 1;
+    aspect-ratio: 1;
 }

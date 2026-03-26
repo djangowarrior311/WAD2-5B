@@ -1,24 +1,20 @@
 {% extends 'base.html' %}
 {% load static %}
-<!-- Expect most pages to inherit from this. -->
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{% static 'styles/base.css' %}">
 {% endblock %}
 
 {% block base_body_block %}
-<!-- Announcements -->
+
 {% if announcement %}
     <div id="announcements" class="banner">
-        <div class="message">
-            {{ announcement }}
-        </div>
+        <div class="message">{{ announcement }}</div>
         <button class="close-button align-right">✕</button>
     </div>
-    <!-- I think if you load it here it'll guarantee that it'll find announcements? -->
     <script src="{% static 'js/close_announcement.js' %}"></script>
 {% endif %}
-<!-- Top bar -->
+
 <div id="topbar" class="center banner">
     <a href="{% url 'home' %}">Home</a> |
     {% if user.is_authenticated %}
@@ -29,11 +25,12 @@
     {% endif %}
 </div>
 
-<!-- Main contents of the page -->
-<div>
-    {% block body_block %}
-    {% endblock %}
-</div>
+<main>
+    <div>
+        {% block body_block %}{% endblock %}
+    </div>
+</main>
+
 {% endblock %}
 
 {% block scripts %}

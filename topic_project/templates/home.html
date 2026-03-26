@@ -1,6 +1,8 @@
 {% extends 'main-base.html' %}
 {% load static %}
 
+{% block body_class %}home-page{% endblock %}
+
 {% block stylesheets %}
     {{ block.super }}
     <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
@@ -8,13 +10,13 @@
 {% endblock %}
 
 {% block body_block %}
-
 <div class="home-container">
     <img src="{% static 'images/topiclogo.png' %}" alt="homepage">
+
     <p>Hello, academic weapon!</p>
     <p>Welcome to TOPIC — your go-to place for help.</p>
 
-    <div class="web-description" style="text-align: center;">
+    <div class="web-description">
         <p>TOPIC is a website designed by students, for students.</p>
         <p>On here, you're able to find help with specific problems, upload and rate study tools, and find the help you need.</p>
     </div>
@@ -23,22 +25,19 @@
         <input type="search" placeholder="Search for topics…">
     </div>
 
-    <!-- populated with a script, don't panic! -->
     <div id="search-filter" class="center">
         <p style="padding: 0.4rem">Filter by tag: </p>
     </div>
+
     <div id="pagination" class="center">
         <button id="left-arrow" disabled>«</button>
-        <!-- button pages -->
-        <div>
-        </div>
+        <div></div>
         <button id="right-arrow" disabled>»</button>
     </div>
+
+    <ul id="results"></ul>
+
+    <!-- script at the very end -->
     <script src="{% static 'js/search_filter.js' %}" type="module"></script>
-
-    <ul id="results"> 
-        
-    </ul>
 </div>
-
 {% endblock %}

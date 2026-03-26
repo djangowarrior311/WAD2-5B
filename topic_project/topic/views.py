@@ -266,3 +266,17 @@ def show_tool(request: HttpRequest, learning_tool_slug) -> HttpResponse:
         context_dict['reviews'] = None
         context_dict['tool'] = None
     return render(request, 'tool.html', context=context_dict)
+
+def show_tag(request: HttpRequest, tag_name: str) -> HttpResponse:
+    try:
+        tag = Tag.objects.get(name__iexact=tag_name)
+    except Tag.DoesNotExist:
+        messages.error(request, "Tag not found.")
+        return redirect("topic:home")
+
+    tools = LearningTool.objects.filter(tags=tag)
+
+    return render(request, "topic/tag_page.html", {
+        "tag": tag,
+        "tools": tools
+    })
