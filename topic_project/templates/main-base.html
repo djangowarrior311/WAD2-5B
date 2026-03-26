@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 {% load static %}
-
+ 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{% static 'styles/base.css' %}">
 {% endblock %}
-
-{% block base_body_block %}
-
+ 
+{% block banner_block %}
+<!-- Announcements -->
 {% if announcement %}
     <div id="announcements" class="banner">
         <div class="message">{{ announcement }}</div>
@@ -24,15 +24,16 @@
         <a href="{% url 'topic:register' %}">Register</a>
     {% endif %}
 </div>
-
-<main>
-    <div>
-        {% block body_block %}{% endblock %}
-    </div>
-</main>
-
 {% endblock %}
-
+ 
+{% block base_body_block %}
+<!-- Main contents of the page -->
+<div>
+    {% block body_block %}
+    {% endblock %}
+</div>
+{% endblock %}
+ 
 {% block scripts %}
     {{ block.super }}
 {% endblock %}

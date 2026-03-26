@@ -13,9 +13,21 @@
     {% block stylesheets %}{% endblock %}
 </head>
 
-<body class="{% block body_class %}{% endblock %}">
+<body>
 
-    {% block base_body_block %}{% endblock %}
+    <!-- BOTH banners will be injected here -->
+    {% block banner_block %}{% endblock %}
+
+    <main>
+        <div>
+            {% block base_body_block %}{% endblock %}
+        </div>
+    </main>
+
+    <footer>
+        Hello, this is a footer <br>
+        About
+    </footer>
 
     {% block scripts %}{% endblock %}
 </body>

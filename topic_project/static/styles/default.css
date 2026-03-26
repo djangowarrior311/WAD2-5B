@@ -1,4 +1,48 @@
-/* Base page styling */
+/* --- BANNERS --- */
+
+/* Shared layout for BOTH banners */
+.banner,
+#announcements {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    margin: 0;
+    z-index: 10;
+}
+
+/* First banner */
+.banner {
+    background-color: #a6ff00;
+    padding: 0.5em;
+}
+
+/* Announcement banner */
+#announcements {
+    background-color: #4FEDEC;
+    display: flex;
+    align-items: center;
+    padding: 0.5em;
+}
+
+#announcements .message {
+    flex: 1;
+    text-align: center;
+}
+
+.close-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.close-button.align-right {
+    margin-right: 2em;
+}
+
+/* --- REST OF YOUR PAGE STYLES BELOW --- */
+
 body {
     background-color: #ffffff;
     color: #000000;
@@ -11,19 +55,12 @@ body {
     min-height: 100vh;
 }
 
-/* keeps everything centered so it doesn't stretch across huge monitors */
 main {
     padding: 0;              /* removed top padding so banner sits at top */
     max-width: 900px;
     margin: 0 auto;
 }
 
-/* spacing for content inside main */
-main > div {
-    margin-top: 1rem;        /* adds breathing room below banner */
-}
-
-/* neon highlighter header */
 h1 {
     background-color: #FFFF00;
     color: #000000;
@@ -33,13 +70,11 @@ h1 {
     margin-bottom: 30px;
 }
 
-/* spacing out form fields */
 form div {
     margin-bottom: 20px;
     font-weight: bold;
 }
 
-/* input styling */
 input[type="text"], input[type="url"], textarea, select {
     width: 100%;
     padding: 12px;
@@ -49,7 +84,6 @@ input[type="text"], input[type="url"], textarea, select {
     border-radius: 4px;
 }
 
-/* neon submit button */
 input[type="submit"] {
     background-color: #FFFF00;
     color: black;
@@ -75,3 +109,62 @@ input[type="submit"]:hover {
 .logo {
     aspect-ratio: 1;
 }
+
+/* Notebook paper background */
+body {
+    background: repeating-linear-gradient(
+        to bottom,
+        #ffffff 0px,
+        #ffffff 22px,
+        #cfe0ff 22px,
+        #cfe0ff 23px
+    );
+    font-family: "Patrick Hand", cursive;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 150px;
+    width: 3px;
+    height: 100%;
+    background-color: #ff4d4d;
+    z-index: -1;
+}
+
+.home-container {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 5rem auto;
+    text-align: center;
+    padding: 2rem;
+}
+
+.search-box input {
+    width: 60%;
+    padding: 0.4rem 1rem;
+    border: 2px solid #888;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-family: "Patrick Hand", cursive;
+    background-color: #fff;
+}
+
+#search-filter {
+    display: flex;
+    text-align: center;
+    padding: 0.4rem;
+}
+
+#search-filter button {
+    display: inline-block;
+    padding: 0.4rem;
+    background: #e5e7eb;
+    color: #333;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.1s ease;
