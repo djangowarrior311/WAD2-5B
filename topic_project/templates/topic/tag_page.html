@@ -1,0 +1,28 @@
+{% extends "main-base.html" %}
+{% load static %}
+
+{% block body_class %}home-page{% endblock %}
+
+{% block stylesheets %}
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+{% endblock %}
+
+{% block body_block %}
+<div class="home-container">
+    <h1>{{ tag.name }}</h1>
+
+    {% if tools %}
+        <ul>
+            {% for tool in tools %}
+                <li>
+                    <a href="/topic/tools/{{ tool.slug }}">{{ tool.name }}</a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tools found for this tag.</p>
+    {% endif %}
+</div>
+{% endblock %}

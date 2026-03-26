@@ -1,4 +1,5 @@
-body {
+/* Notebook background */
+body.home-page {
     background: repeating-linear-gradient(
         to bottom,
         #ffffff 0px,
@@ -25,10 +26,10 @@ body::before {
 .home-container {
     position: relative;
     z-index: 1;
-    max-width: 700px;
-    margin: 5rem auto;
+    max-width: 750px;
+    margin: 0 auto;
+    padding: 1rem;
     text-align: center;
-    padding: 2rem;
 }
  
 .search-box input {
@@ -48,24 +49,32 @@ body::before {
 }
  
 #search-filter button {
-    display: inline-block;
-    padding: 0.4rem;
-    background: #e5e7eb;
-    color: #333;
-    border: 2px solid #ccc;
-    border-radius: 6px;
+    padding: 0.6rem 1rem;
+    border: 2px solid #d4c46a;
+    border-radius: 4px;
     cursor: pointer;
-    transition: all 0.1s ease;
+    font-family: "Patrick Hand", cursive;
+    font-size: 1.1rem;
+
+    background: #fff3a3; /* default pastel yellow */
+
+    /* grey sticky-note shadow */
+    box-shadow: 3px 3px 0px #bfbfbf,
+                0px 0px 8px rgba(0,0,0,0.15);
+
+    transform: rotate(-1.5deg);
+    transition: all 0.15s ease;
 }
  
 #results {
     list-style: none;
+    padding: 0;
 }
  
 #results li {
-    min-width: 50vw;
+    min-width: 35vw;
     font-size: 1.4rem;
-    margin: 1vw;
+    margin: 0.6vw auto;
     display: table;
 }
  
