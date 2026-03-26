@@ -1,18 +1,25 @@
+/* FULL-WIDTH BANNERS */
 .banner {
     background-color: #a6ff00;
-    width: 100%;
     padding: 0.5em;
+
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+
+    position: relative;
+    z-index: 1;   /* ensures banner sits below notebook line */
 }
 
+/* ANNOUNCEMENT BAR */
 #announcements {
     background-color: #4FEDEC;
-    display: flex;            /* flex container */
-    align-items: center;      /* vertical centering */
+    display: flex;
+    align-items: center;
 }
 
 #announcements .message {
-    flex: 1;                  /* take remaining space */
-    text-align: center;       /* center the text */
+    flex: 1;
+    text-align: center;
 }
 
 .close-button {

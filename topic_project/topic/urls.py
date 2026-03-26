@@ -16,4 +16,6 @@ urlpatterns = [
     path("logout/", views.user_logout, name="logout"),
     path("tools/<slug:learning_tool_slug>/", views.show_tool, name="show_tool"),
     path("tools/<slug:learning_tool_slug>/add_review/", views.add_review, name="add_review"),
+    path("tag/<str:tag_name>/", views.show_tag, name="show_tag"),
+
 ]
