@@ -1,38 +1,34 @@
 <!DOCTYPE html>
-
 {% load static %}
-<!-- html page that ALL pages inherit from. -->
 
 <html>
-
 <head>
     <title>
         {% block title_block %}
         Topic - your home for all learning tools!
         {% endblock %}
     </title>
-    <!-- this stylesheet will be loaded everywhere by default -->
+
     <link rel="stylesheet" type="text/css" href="{% static 'styles/default.css' %}">
-    <!-- other pages can add their own stylesheets -->
-    {% block stylesheets %}
-    {% endblock %}
+    {% block stylesheets %}{% endblock %}
 </head>
 
 <body>
+
+    <!-- BOTH banners will be injected here -->
+    {% block banner_block %}{% endblock %}
+
     <main>
         <div>
-            {% block base_body_block %}
-            {% endblock %}
+            {% block base_body_block %}{% endblock %}
         </div>
     </main>
 
     <footer>
-        Hello, this is a footer <br >
+        Hello, this is a footer <br>
         About
     </footer>
 
-    {% block scripts %}
-    {% endblock %}
+    {% block scripts %}{% endblock %}
 </body>
-
 </html>

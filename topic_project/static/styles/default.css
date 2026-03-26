@@ -1,22 +1,64 @@
-/* setting up the main page colors so it matches our team wireframes */
+/* --- BANNERS --- */
+
+/* Shared layout for BOTH banners */
+.banner,
+#announcements {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    margin: 0;
+    z-index: 10;
+}
+
+/* First banner */
+.banner {
+    background-color: #a6ff00;
+    padding: 0.5em;
+}
+
+/* Announcement banner */
+#announcements {
+    background-color: #4FEDEC;
+    display: flex;
+    align-items: center;
+    padding: 0.5em;
+}
+
+#announcements .message {
+    flex: 1;
+    text-align: center;
+}
+
+.close-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.close-button.align-right {
+    margin-right: 2em;
+}
+
+/* --- REST OF YOUR PAGE STYLES BELOW --- */
+
 body {
-    background-color: #ffffff; 
-    color: #000000; 
+    background-color: #ffffff;
+    color: #000000;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-/* keeps everything centered so it doesn't stretch across huge monitors */
 main {
     padding: 40px;
     max-width: 800px;
     margin: 0 auto;
 }
 
-/* the neon highlighter header we agreed on for the spec */
 h1 {
-    background-color: #FFFF00; 
+    background-color: #FFFF00;
     color: #000000;
     padding: 10px 20px;
     display: inline-block;
@@ -24,31 +66,20 @@ h1 {
     margin-bottom: 30px;
 }
 
-/* spacing out the form fields so they aren't squished together */
 form div {
     margin-bottom: 20px;
     font-weight: bold;
 }
-body {
-  width: 100vw;
-  min-height: 100vh;
-  display: flex;
-  background-color: white;
-  flex-flow: column nowrap;
-  justify-content: space-between;
-}
 
-/* styling the actual input boxes so you can actually see what you are typing */
 input[type="text"], input[type="url"], textarea, select {
     width: 100%;
     padding: 12px;
-    border: 2px solid #000000; 
-    background: #f8f8f8; /* slightly off-white so it pops against the background */
+    border: 2px solid #000000;
+    background: #f8f8f8;
     color: black;
     border-radius: 4px;
 }
 
-/* our big neon submit button */
 input[type="submit"] {
     background-color: #FFFF00;
     color: black;
@@ -60,18 +91,76 @@ input[type="submit"] {
     transition: 0.3s;
 }
 
-/* makes the button invert colors when you hover over it */
 input[type="submit"]:hover {
     background-color: #000000;
     color: #ff00ff;
 }
-.center {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .logo {
-  aspect-ratio: 1;
+    aspect-ratio: 1;
 }
+
+/* Notebook paper background */
+body {
+    background: repeating-linear-gradient(
+        to bottom,
+        #ffffff 0px,
+        #ffffff 22px,
+        #cfe0ff 22px,
+        #cfe0ff 23px
+    );
+    font-family: "Patrick Hand", cursive;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 150px;
+    width: 3px;
+    height: 100%;
+    background-color: #ff4d4d;
+    z-index: -1;
+}
+
+.home-container {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 5rem auto;
+    text-align: center;
+    padding: 2rem;
+}
+
+.search-box input {
+    width: 60%;
+    padding: 0.4rem 1rem;
+    border: 2px solid #888;
+    border-radius: 8px;
+    font-size: 1.2rem;
+    font-family: "Patrick Hand", cursive;
+    background-color: #fff;
+}
+
+#search-filter {
+    display: flex;
+    text-align: center;
+    padding: 0.4rem;
+}
+
+#search-filter button {
+    display: inline-block;
+    padding: 0.4rem;
+    background: #e5e7eb;
+    color: #333;
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.1s ease;

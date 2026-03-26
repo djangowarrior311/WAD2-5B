@@ -1,26 +1,45 @@
 .banner {
     background-color: #a6ff00;
-    width: 100%;
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
     padding: 0.5em;
+    box-sizing: border-box;
+    z-index: 1;
 }
-
+ 
 #announcements {
     background-color: #4FEDEC;
     display: flex;            /* flex container */
     align-items: center;      /* vertical centering */
+    height: auto;
+    min-height: unset;
 }
-
+ 
 #announcements .message {
     flex: 1;                  /* take remaining space */
     text-align: center;       /* center the text */
 }
-
+ 
 .close-button {
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
-
+ 
 .close-button.align-right {
     margin-right: 2em;
+}
+
+/* Make BOTH banners behave at the top */
+.banner,
+#announcements {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    z-index: 10;
+    margin: 0; /* removes spacing between them */
 }

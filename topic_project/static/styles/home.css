@@ -9,19 +9,19 @@ body {
     font-family: "Patrick Hand", cursive;
     position: relative;
 }
-
+ 
 body::before {
     content: "";
     position: fixed;
     top: 0;
-    left: 60px;
+    left: 150px;
     width: 3px;
     height: 100%;
     background-color: #ff4d4d;
-    z-index: 0;
+    z-index: -1;
 }
-
-
+ 
+ 
 .home-container {
     position: relative;
     z-index: 1;
@@ -30,7 +30,7 @@ body::before {
     text-align: center;
     padding: 2rem;
 }
-
+ 
 .search-box input {
     width: 60%;
     padding: 0.4rem 1rem;
@@ -40,13 +40,13 @@ body::before {
     font-family: "Patrick Hand", cursive;
     background-color: #fff;
 }
-
+ 
 #search-filter {
     display: flex;
     text-align: center;
     padding: 0.4rem;
 }
-
+ 
 #search-filter button {
     display: inline-block;
     padding: 0.4rem;
@@ -57,18 +57,18 @@ body::before {
     cursor: pointer;
     transition: all 0.1s ease;
 }
-
+ 
 #results {
     list-style: none;
 }
-
+ 
 #results li {
     min-width: 50vw;
     font-size: 1.4rem;
     margin: 1vw;
     display: table;
 }
-
+ 
 /* 
 #categories {
     padding: 1vw
