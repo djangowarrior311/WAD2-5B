@@ -1,116 +1,58 @@
-/* --- BANNERS --- */
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap');
 
-/* Shared layout for BOTH banners */
-.banner,
-#announcements {
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    transform: translateX(-50%);
-    box-sizing: border-box;
-    margin: 0;
-    z-index: 10;
-}
-
-/* First banner */
 .banner {
+    width: 100%;
     background-color: #a6ff00;
-    padding: 0.5em;
+    padding: 0.7rem 0;
+    text-align: center;
+    font-family: "Patrick Hand", cursive;
+    font-size: 1.4rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    margin: 0;
 }
 
-/* Announcement banner */
 #announcements {
+    width: 100%;
     background-color: #4FEDEC;
+    padding: 0.7rem 0.5rem;
     display: flex;
     align-items: center;
-    padding: 0.5em;
+    text-align: center;
+    font-family: "Patrick Hand", cursive;
+    font-size: 1.2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1100;
 }
 
 #announcements .message {
     flex: 1;
-    text-align: center;
 }
 
 .close-button {
-    background-color: transparent;
+    background: transparent;
     border: none;
     cursor: pointer;
+    font-size: 1.4rem;
 }
 
-.close-button.align-right {
-    margin-right: 2em;
-}
-
-/* --- REST OF YOUR PAGE STYLES BELOW --- */
-
-body {
-    background-color: #ffffff;
-    color: #000000;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    margin: 0;
-    padding: 0;
-
-    /* keep height but REMOVE flexbox */
-    width: 100vw;
-    min-height: 100vh;
+body.login-page .banner,
+body.register-page .banner {
+    background-color: #ff2ec4;
+    color: white;
 }
 
 main {
-    padding: 0;              /* removed top padding so banner sits at top */
-    max-width: 900px;
-    margin: 0 auto;
+    padding-top: 6rem;
 }
 
-h1 {
-    background-color: #FFFF00;
-    color: #000000;
-    padding: 10px 20px;
-    display: inline-block;
-    text-transform: uppercase;
-    margin-bottom: 30px;
-}
-
-form div {
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-input[type="text"], input[type="url"], textarea, select {
-    width: 100%;
-    padding: 12px;
-    border: 2px solid #000000;
-    background: #f8f8f8;
-    color: black;
-    border-radius: 4px;
-}
-
-input[type="submit"] {
-    background-color: #FFFF00;
-    color: black;
-    border: 2px solid #000000;
-    padding: 15px 30px;
-    font-weight: bold;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: 0.3s;
-}
-
-input[type="submit"]:hover {
-    background-color: #000000;
-    color: #ff00ff;
-}
-
-.center {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.logo {
-    aspect-ratio: 1;
-}
-
-/* Notebook paper background */
 body {
     background: repeating-linear-gradient(
         to bottom,
@@ -120,6 +62,8 @@ body {
         #cfe0ff 23px
     );
     font-family: "Patrick Hand", cursive;
+    margin: 0;
+    padding: 0;
     position: relative;
 }
 
@@ -132,40 +76,4 @@ body::before {
     height: 100%;
     background-color: #ff4d4d;
     z-index: -1;
-}
-
-.home-container {
-    position: relative;
-    z-index: 1;
-    max-width: 700px;
-    margin: 5rem auto;
-    text-align: center;
-    padding: 2rem;
-}
-
-.search-box input {
-    width: 60%;
-    padding: 0.4rem 1rem;
-    border: 2px solid #888;
-    border-radius: 8px;
-    font-size: 1.2rem;
-    font-family: 'Courier Prime', monospace;;
-    background-color: #fff;
-}
-
-#search-filter {
-    display: flex;
-    text-align: center;
-    padding: 0.4rem;
-}
-
-#search-filter button {
-    display: inline-block;
-    padding: 0.4rem;
-    background: #e5e7eb;
-    color: #333;
-    border: 2px solid #ccc;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.1s ease;
 }

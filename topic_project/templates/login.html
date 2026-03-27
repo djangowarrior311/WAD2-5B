@@ -1,53 +1,50 @@
 {% extends 'main-base.html' %}
 {% load static %}
 
+{% block body_class %}login-page{% endblock %}
+
 {% block stylesheets %}
-    {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/register_login.css' %}">
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'styles/register_login.css' %}">
 {% endblock %}
 
 {% block body_block %}
 <div class="container">
-    <div class="wrapper">
-        <h1>Login to Topic</h1>
-        
-        {% if messages %}
-            {% for message in messages %}
-                <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
-                    {{ message }}
-                </div>
-            {% endfor %}
-        {% endif %}
-        
-        <form method="post" action="{% url 'topic:login' %}" class="form">
-            {% csrf_token %}
-            
-            <p>
-                <label for="username">Username *</label>
-                <input type="text" 
-                       name="username" 
-                       id="username" 
-                       required 
-                       placeholder="Enter your username"
-                       autofocus>
+    <div class="sticky-note">
+        <div class="wrapper">
+
+            <h1>Login to Topic</h1>
+
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="{% if message.tags == 'error' %}error-message{% else %}success-message{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <form method="post" action="{% url 'topic:login' %}" class="form">
+                {% csrf_token %}
+
+                <p>
+                    <label for="username">Username *</label>
+                    <input type="text" name="username" id="username" required>
+                </p>
+
+                <p>
+                    <label for="password">Password *</label>
+                    <input type="password" name="password" id="password" required>
+                </p>
+
+                <input type="submit" value="Login">
+            </form>
+
+            <p style="text-align:center; margin-top:20px;">
+                Don't have an account?
+                <a href="{% url 'topic:register' %}">Register here</a>
             </p>
-            
-            <p>
-                <label for="password">Password *</label>
-                <input type="password" 
-                       name="password" 
-                       id="password" 
-                       required 
-                       placeholder="Enter your password">
-            </p>
-            
-            <input type="submit" value="Login">
-        </form>
-        
-        <p style="text-align: center; margin-top: 20px;">
-            Don't have an account? 
-            <a href="{% url 'topic:register' %}">Register here</a>
-        </p>
+
+        </div>
     </div>
 </div>
 {% endblock %}

@@ -9,19 +9,22 @@
         {% endblock %}
     </title>
 
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/default.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/default.css' %}">
     {% block stylesheets %}{% endblock %}
 </head>
 
-<body>
+<body class="{% block body_class %}{% endblock %}">
 
-    <!-- BOTH banners will be injected here -->
     {% block banner_block %}{% endblock %}
 
+    {% if body_class == "login-page" or body_class == "register-page" %}
+    <div class="topic-logo-container">
+        <img src="{% static 'images/topic_logo.png' %}" class="topic-logo" alt="Topic Logo">
+    </div>
+    {% endif %}
+
     <main>
-        <div>
-            {% block base_body_block %}{% endblock %}
-        </div>
+        {% block base_body_block %}{% endblock %}
     </main>
 
     <footer>

@@ -1,107 +1,74 @@
-/* Notebook background */
-body.home-page {
-    background: repeating-linear-gradient(
-        to bottom,
-        #ffffff 0px,
-        #ffffff 22px,
-        #cfe0ff 22px,
-        #cfe0ff 23px
-    );
-    font-family: "Courier Prime", monospace;
-    position: relative;
-
-    padding-top: 30rem; /* MORE SPACE BELOW TOP BANNER */
+body.home-page main {
+    padding-top: 5rem;
 }
 
-/* Restore original margin line position */
-body::before {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 150px;   /* original position */
-    width: 3px;
-    height: 100%;
-    background-color: #ff4d4d;
-    z-index: -1;
-}
-
-/* Main container */
 .home-container {
-    position: relative;
-    z-index: 1;
-    max-width: 650px;
-    margin: 0 auto;
-    padding: 2rem 1rem;
+    max-width: 700px;
+    margin: 2rem auto;
+    padding: 2rem;
     text-align: center;
-    font-family: "Courier Prime", monospace;
-
-    margin-top: 1.5rem; /* EXTRA DROP FOR CONTENT ONLY */
 }
 
-/* Add space under the logo */
 .home-container img {
-    margin-bottom: 2.5rem;
+    margin-bottom: 2rem;
 }
 
-/* Search box */
 .search-box input {
-    width: 80%;
+    width: 60%;
     padding: 0.4rem 1rem;
     border: 2px solid #888;
     border-radius: 8px;
     font-size: 1.2rem;
     font-family: "Courier Prime", monospace;
     background-color: #fff;
-    margin: 0 auto;
-    display: block;
 }
 
-/* Filter section */
 #search-filter {
     display: flex;
     justify-content: center;
     gap: 0.5rem;
     padding: 0.4rem;
-    font-family: "Courier Prime", monospace;
 }
 
-/* Filter buttons */
 #search-filter button {
     padding: 0.6rem 1rem;
-    border: 2px solid #d4c46a;
+    border: 2px solid #b5b5b5;
     border-radius: 4px;
     cursor: pointer;
     font-family: "Courier Prime", monospace;
     font-size: 1.1rem;
-
-    background: #fff3a3;
-
-    box-shadow: 3px 3px 0px #bfbfbf,
-                0px 0px 8px rgba(0,0,0,0.15);
-
+    background: #e6e6e6;
+    box-shadow: 3px 3px 0px #bfbfbf;
     transform: rotate(-1.5deg);
     transition: all 0.15s ease;
 }
 
-/* Pagination */
+#search-filter button:hover {
+    background: #ffff83;
+    border-color: #dada9d;
+    box-shadow: 3px 3px 0px #a0a0a0;
+}
+
 #pagination {
     display: flex;
     justify-content: center;
-    align-items: center;
     gap: 1rem;
 }
 
-/* Results list */
 #results {
     list-style: none;
     padding: 0;
+    margin-top: 1rem;
     font-family: "Courier Prime", monospace;
 }
 
 #results li {
-    min-width: 35vw;
     font-size: 1.4rem;
-    margin: 0.6vw auto;
+    margin: 0.6rem auto;
     display: table;
-    font-family: "Courier Prime", monospace;
+}
+
+.web-description {
+    margin-top: 2rem;
+    font-size: 1.1rem;
 }

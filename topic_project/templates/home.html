@@ -4,14 +4,15 @@
 {% block body_class %}home-page{% endblock %}
 
 {% block stylesheets %}
-    {{ block.super }}
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/home.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
+{{ block.super }}
+<link rel="stylesheet" href="{% static 'styles/home.css' %}">
+<link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime&display=swap" rel="stylesheet">
 {% endblock %}
 
 {% block body_block %}
 <div class="home-container">
+
     <img src="{% static 'images/topiclogo.png' %}" alt="homepage">
 
     <p>Hello, academic weapon!</p>
@@ -21,8 +22,8 @@
         <input type="search" placeholder="Search for topics…">
     </div>
 
-    <div id="search-filter" class="center">
-        <p style="padding: 0.4rem">Filter by tag: </p>
+    <div id="search-filter">
+        <p>Filter by tag:</p>
     </div>
 
     <div id="pagination" class="center">
@@ -32,7 +33,6 @@
     </div>
 
     <ul id="results"></ul>
-
 
     <div class="web-description">
         <p>TOPIC is a website designed by students, for students.</p>

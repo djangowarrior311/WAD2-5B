@@ -1,18 +1,17 @@
 {% extends 'base.html' %}
 {% load static %}
- 
+
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="{% static 'styles/base.css' %}">
+<link rel="stylesheet" href="{% static 'styles/base.css' %}">
 {% endblock %}
- 
+
 {% block banner_block %}
-<!-- Announcements -->
 {% if announcement %}
-    <div id="announcements" class="banner">
-        <div class="message">{{ announcement }}</div>
-        <button class="close-button align-right">✕</button>
-    </div>
-    <script src="{% static 'js/close_announcement.js' %}"></script>
+<div id="announcements" class="banner">
+    <div class="message">{{ announcement }}</div>
+    <button class="close-button align-right">✕</button>
+</div>
+<script src="{% static 'js/close_announcement.js' %}"></script>
 {% endif %}
 
 <div id="topbar" class="center banner">
@@ -24,16 +23,19 @@
         <a href="{% url 'topic:register' %}">Register</a>
     {% endif %}
 </div>
-{% endblock %}
- 
-{% block base_body_block %}
-<!-- Main contents of the page -->
-<div>
-    {% block body_block %}
-    {% endblock %}
+
+{% if body_class == "login-page" or body_class == "register-page" %}
+<div class="logo-under-banner">
+    <img src="{% static 'images/topiclogo.png' %}" alt="Topic Logo">
 </div>
+{% endif %}
+
 {% endblock %}
- 
+
+{% block base_body_block %}
+{% block body_block %}{% endblock %}
+{% endblock %}
+
 {% block scripts %}
-    {{ block.super }}
+{{ block.super }}
 {% endblock %}
